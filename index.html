@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portfolio</title>
+        <link rel="icon" type="image/svg" href="img/Logo.svg">
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <span>© Mamedov Artur 2024</span>
+            <button class="btn" id="welcome-btn" data-target="welcome">
+                <img src="img/Logo.svg" alt="Logo" class="logo"></button>
+        </header>
+
+        <!-- Основной контейнер для фреймов -->
+        <div class="frames-container">
+
+            <div class="frame active" id="welcome">
+                <div class="content">
+                    <h1 class="text" id="welcome-text-1">You’re Welcome.</h1>
+                    <h1 class="text hidden" id="welcome-text-2">I’m Mamedov Artur</h1>
+                </div>
+            </div>
+
+
+            <div class="frame" id="about-me">
+                <div class="content">
+                    <div id="typing-text"></div>
+                </div>
+            </div>
+
+            <div class="frame" id="stack">
+
+                <div class="content" id="stack_container">
+
+                    <div class="stack_block card">
+                        <img src="img/stack/PythonLogo.svg" alt="PythonLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">Python</span>
+                            <span class="stack_yo_exp">4+ years</span>
+                        </div>
+                    </div>      
+
+                    <div class="stack_block card">
+                        <img src="img/stack/GithubLogo.svg" alt="GitHubLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">GitHub</span>
+                            <span class="stack_yo_exp">3+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/VSCodeLogo.svg" alt="VSCodeLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">VSCode</span>
+                            <span class="stack_yo_exp">3+ years</span>
+                        </div>
+                    </div>                    
+                    
+                    <div class="stack_block card">
+                        <img src="img/stack/PhotoshopLogo.svg" alt="PhotoshopLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">Photoshop</span>
+                            <span class="stack_yo_exp">3+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/SqlLogo.svg" alt="SqlLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">SQL</span>
+                            <span class="stack_yo_exp">2+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/FigmaLogo.svg" alt="FigmaLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">Figma</span>
+                            <span class="stack_yo_exp">2+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/CssLogo.svg" alt="CssLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">CSS</span>
+                            <span class="stack_yo_exp">2+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/HtmlLogo.svg" alt="HtmlLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">HTML</span>
+                            <span class="stack_yo_exp">2+ years</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/JsLogo.svg" alt="JavaScriptLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">JavaScript</span>
+                            <span class="stack_yo_exp">2+ year</span>
+                        </div>
+                    </div>
+
+                    <div class="stack_block card">
+                        <img src="img/stack/PhpLogo.svg" alt="PhpLogo">
+                        <div class="stack_content">
+                            <span class="stack_name">PHP</span>
+                            <span class="stack_yo_exp">1+ year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="frame" id="projects">
+                <div class="content">
+                    <h1>Projects</h1>
+                    <p>Here are some of the projects I've worked on.</p>
+                </div>
+            </div>
+
+            <div class="frame" id="contacts">
+                <div class="content">
+                    <h1>Contact Me</h1>
+                    <p>
+                        Feel free to reach out to me through any of the
+                        following methods.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <button class="btn" id="adout-me-btn" data-target="about-me">
+                <img src="img/Person.svg" alt="AboutMe">About me</button>
+            <button class="btn" id="stack-btn" data-target="stack">
+                <img src="img/Book.svg" alt="Stack">Stack</button>
+            <button class="btn" id="projects-btn" data-target="projects">
+                <img src="img/Folder.svg" alt="Projects">Projects</button>
+            <button class="btn" id="contacts-btn" data-target="contacts">
+                <img src="img/Phone.svg" alt="Contacts">Contacts</button>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+</html>
