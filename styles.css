@@ -151,7 +151,58 @@ header span {
     gap: 1rem;
 }
 
-@media (max-height: 1200px) {
+.swiper {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    /* width: 100%; */
+    width: 600px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.project-card {
+    background: #1e293b;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    width: 300px;
+    padding: 15px;
+    margin: auto;
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.project-card h2 {
+    font-size: 1.2rem;
+    color: #38bdf8;
+    margin: 10px 0;
+}
+
+.project-card p {
+    font-size: 1rem;
+    color: #94a3b8;
+}
+
+/* Кнопки управления */
+.swiper-button-prev,
+.swiper-button-next {
+    --swiper-navigation-color: black !important;
 }
 
 /* Контент фрейма */

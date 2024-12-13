@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const buttons = document.querySelectorAll(".btn");
   const frames = document.querySelectorAll(".frame");
-  const cards = document.querySelectorAll('.card');
-
+  const cards = document.querySelectorAll(".card");
 
   const welcomeText1 = document.querySelector("#welcome-text-1");
   const welcomeText2 = document.querySelector("#welcome-text-2");
 
   let isTypingAboutMe = true;
-
 
   // circle ____________________________________________
 
@@ -25,20 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
   circle.style.zIndex = "1000";
   circle.style.transform = "translate(-50%, -50%)";
 
-
   document.body.appendChild(circle);
 
-
-  let mouseX = 0, mouseY = 0;
-  let circleX = 0, circleY = 0;
-  const circleSpeed = 0.02; 
-
+  let mouseX = 0,
+    mouseY = 0;
+  let circleX = 0,
+    circleY = 0;
+  const circleSpeed = 0.02;
 
   document.addEventListener("mousemove", (event) => {
     mouseX = event.clientX;
     mouseY = event.clientY;
   });
-
 
   function animateCircle() {
     circleX += (mouseX + 10 - circleX) * circleSpeed;
@@ -47,12 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(animateCircle);
   }
 
-
   animateCircle();
 
   // circle ____________________________________________END
-  
-
 
   setTimeout(() => {
     welcomeText1.style.animation = "fadeOutAndUp 1.5s forwards";
@@ -64,11 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500); //time (ms)
   }, 1500); //time (ms)
 
-
-
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      
       const targetId = button.getAttribute("data-target");
       const targetFrame = document.getElementById(targetId);
 
@@ -81,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       targetBtnFrame.classList.add("active");
 
       if (targetId === "welcome") {
-        isTypingAboutMe = false
+        isTypingAboutMe = false;
 
         welcomeText1.classList.remove("hidden");
         welcomeText2.classList.add("hidden");
@@ -95,16 +84,16 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             welcomeText1.classList.add("hidden");
             welcomeText2.classList.remove("hidden");
-            welcomeText2.style.animation = "fadeIn 0.5s forwards"; 
+            welcomeText2.style.animation = "fadeIn 0.5s forwards";
           }, 500); //time (ms)
-
         }, 1500); //time (ms)
-      };
+      }
 
       if (targetId === "about-me") {
-        isTypingAboutMe = true
-        document.getElementById("typing-text").innerHTML = '';
-        const textAboutMe = 'My name is Artur. \n I am a very sociable and friendly person. \n I like programming and UI/UX Design.';
+        isTypingAboutMe = true;
+        document.getElementById("typing-text").innerHTML = "";
+        const textAboutMe =
+          "My name is Artur. \n I am a very sociable and friendly person. \n I like programming and UI/UX Design.";
         const speedTextAboutMe = 50; // speedTime (мс)
         let index = 0;
         function typeText() {
@@ -122,51 +111,67 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         typeText();
-      };
+      }
 
       if (targetId === "stack") {
-        isTypingAboutMe = false
+        isTypingAboutMe = false;
         const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
         if (!isMobile) {
           cards.forEach((card) => {
-            card.addEventListener('mousemove', (e) => {
+            card.addEventListener("mousemove", (e) => {
               const rect = card.getBoundingClientRect();
               const x = e.clientX - rect.left;
               const y = e.clientY - rect.top;
-            
+
               const centerX = rect.width / 2;
               const centerY = rect.height / 2;
-            
+
               const rotateX = (y - centerY) / 7;
               const rotateY = (x - centerX) / 7;
-            
+
               const shadowX = (x - centerX) / 7;
               const shadowY = (y - centerY) / 7;
-            
+
               requestAnimationFrame(() => {
                 card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
                 card.style.boxShadow = `${-shadowX}px ${-shadowY}px 1em rgba(0, 0, 0, 0.3)`;
               });
             });
-          
-            card.addEventListener('mouseleave', () => {
+
+            card.addEventListener("mouseleave", () => {
               requestAnimationFrame(() => {
-                card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-                card.style.boxShadow = '0 0em 0em rgba(0, 0, 0, 0)';
+                card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+                card.style.boxShadow = "0 0em 0em rgba(0, 0, 0, 0)";
               });
             });
           });
-        };
-      };
+        }
+      }
 
       if (targetId === "projects") {
-        isTypingAboutMe = false
-      };
-      
-      if (targetId === "contacts") {
-        isTypingAboutMe = false
+        isTypingAboutMe = false;
+
+        const swiper = new Swiper(".swiper", {
+          effect: "cards",
+          grabCursor: true,
+          cardsEffect: {
+            perSlideOffset: 5,
+            perSlideRotate: 1,
+            rotate: true,
+            slideShadows: false,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          speed: 400, // Уменьшите скорость анимации
+        });
       }
-    })
+
+      if (targetId === "contacts") {
+        isTypingAboutMe = false;
+      }
+    });
   });
 });
