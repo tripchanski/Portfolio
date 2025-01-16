@@ -17,6 +17,12 @@ html {
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 header,
 .frames-container,
 footer {
@@ -28,11 +34,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
     height: 10vh;
-
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 10vw;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
 
     /* z-index: 10; */
 }
@@ -151,17 +157,24 @@ header span {
     gap: 1rem;
 }
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 .swiper {
-    margin: 0;
     display: flex;
     justify-content: center;
-    /* width: 100%; */
-    width: 600px;
+    align-items: center;
+    width: 80vw;
+    height: 75vh;
 }
 
 .swiper-slide {
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: center !important;
     align-items: center;
     text-align: center;
     transition:
@@ -171,12 +184,16 @@ header span {
 }
 
 .project-card {
-    background: #1e293b;
+    display: flex;
+    flex-direction: row;
+    background: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     text-align: center;
-    width: 300px;
+
+    width: 80%;
+    height: 70%;
     padding: 15px;
     margin: auto;
 }
@@ -190,13 +207,13 @@ header span {
 
 .project-card h2 {
     font-size: 1.2rem;
-    color: #38bdf8;
+    color: #000000;
     margin: 10px 0;
 }
 
 .project-card p {
     font-size: 1rem;
-    color: #94a3b8;
+    color: #000000;
 }
 
 /* Кнопки управления */
@@ -204,6 +221,14 @@ header span {
 .swiper-button-next {
     --swiper-navigation-color: black !important;
 }
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /* Контент фрейма */
 .content {
@@ -351,6 +376,11 @@ footer .btn:hover::after {
 }
 
 @media (max-width: 800px) {
+
+    .content{
+        height: 70vh;
+    }
+
     #stack_container {
         flex-wrap: wrap; /* Разрешаем перенос элементов */
         flex-direction: column; /* Строим элементы сверху вниз */
