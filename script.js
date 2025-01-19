@@ -6,7 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const welcomeText1 = document.querySelector("#welcome-text-1");
   const welcomeText2 = document.querySelector("#welcome-text-2");
 
+  const moreButton = document.querySelector(".btn-more");
+  const overlay = document.querySelector(".overlay");
+
   let isTypingAboutMe = true;
+  let typingTimeout = null;
 
   // circle ____________________________________________
 
@@ -53,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
       welcomeText1.classList.add("hidden");
       welcomeText2.classList.remove("hidden");
       welcomeText2.style.animation = "fadeIn 0.5s forwards";
-    }, 500); //time (ms)
-  }, 1500); //time (ms)
+    }, 500);
+  }, 1500);
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -90,12 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (targetId === "about-me") {
-        isTypingAboutMe = true;
+        isTypingAboutMe = false;
+        clearTimeout(typingTimeout);
         document.getElementById("typing-text").innerHTML = "";
         const textAboutMe =
           "My name is Artur. \n I am a very sociable and friendly person. \n I like programming and UI/UX Design.";
         const speedTextAboutMe = 50; // speedTime (мс)
         let index = 0;
+
+        isTypingAboutMe = true;
+
         function typeText() {
           if (index < textAboutMe.length && isTypingAboutMe) {
             const currentChar = textAboutMe[index];
@@ -106,7 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             index++;
-            setTimeout(typeText, speedTextAboutMe);
+            // setTimeout(typeText, speedTextAboutMe);
+            typingTimeout = setTimeout(typeText, speedTextAboutMe);
           }
         }
 
@@ -161,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rotate: true,
             slideShadows: false,
           },
+          loop: true,
           navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
@@ -171,6 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (targetId === "contacts") {
         isTypingAboutMe = false;
+      }
+
+      if (targetId === "more") {
+        isTypingAboutMe = false;
+
+        moreButton.addEventListener("click", () => {
+          overlay.classList.toggle("visible");
+        });
       }
     });
   });

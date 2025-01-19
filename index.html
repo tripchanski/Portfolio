@@ -1,23 +1,31 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <!-- Основные метаданные -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Portfolio</title>
+
+        <!-- Иконка и стили -->
         <link rel="icon" type="image/svg" href="img/Logo.svg" />
         <link rel="stylesheet" href="styles.css" />
+
+        <!-- Шрифты -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap"
             rel="stylesheet"
         />
+
+        <!-- Стили Swiper -->
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
         />
     </head>
     <body>
+        <!-- Хедер -->
         <header>
             <span>© Mamedov Artur 2024</span>
             <button class="btn" id="welcome-btn" data-target="welcome">
@@ -25,8 +33,9 @@
             </button>
         </header>
 
-        <!-- Основной контейнер для фреймов -->
+        <!-- Основной контейнер -->
         <div class="frames-container">
+            <!-- Приветственный экран -->
             <div class="frame active" id="welcome">
                 <div class="content">
                     <h1 class="text" id="welcome-text-1">You’re Welcome.</h1>
@@ -35,13 +44,18 @@
                     </h1>
                 </div>
             </div>
+
+            <!-- О себе -->
             <div class="frame" id="about-me">
                 <div class="content">
                     <div id="typing-text"></div>
                 </div>
             </div>
+
+            <!-- Навыки -->
             <div class="frame" id="stack">
                 <div class="content" id="stack_container">
+                    <!-- Карточки навыков -->
                     <div class="stack_block card">
                         <img src="img/stack/PythonLogo.svg" alt="PythonLogo" />
                         <div class="stack_content">
@@ -127,77 +141,299 @@
                 </div>
             </div>
 
+            <!-- Проекты -->
             <div class="frame" id="projects">
                 <div class="content">
                     <div class="swiper">
                         <div class="swiper-wrapper">
+                            <!-- Проект 1 -->
                             <div class="swiper-slide">
                                 <div class="project-card">
-                                    <img
-                                        src="https://via.placeholder.com/300x300"
-                                        alt="Проект 1"
-                                        loading="lazy"
-                                    />
-                                    <div>
-                                        <h2>Dexy</h2>
-                                        <p>
-                                            First Individual Project Created in
-                                            Q3 2021. This was my first
-                                            full-fledged project — a Discord bot
-                                            written in Python. It provides
-                                            moderation tools and an economic
-                                            environment with mini-games,
-                                            allowing users to earn points and
-                                            level up. Thanks to my initiative, I
-                                            significantly developed algorithmic
-                                            and logical thinking.
-                                        </p>
-                                        <div class="stacks-for-project">
-                                            <div class="stack-for-project">
-                                                <p>#Python</p>
+                                    <div class="project-img">
+                                        <img
+                                            src="img/dexy.png"
+                                            alt="Dexy Project"
+                                            loading="lazy"
+                                            class="project-image"
+                                        />
+                                    </div>
+                                    <div class="project-info">
+                                        <div class="project-main-info">
+                                            <h2>Dexy</h2>
+                                            <p class="about">
+                                                First Individual Project Created
+                                                in Q3 2021. This was my first
+                                                full-fledged project — a Discord
+                                                bot written in Python. It
+                                                provides moderation tools and an
+                                                economic environment with
+                                                mini-games, allowing users to
+                                                earn points and level up. Thanks
+                                                to my initiative, I
+                                                significantly developed
+                                                algorithmic and logical
+                                                thinking.
+                                            </p>
+                                            <div class="stacks-for-project">
+                                                <div class="stack-for-project">
+                                                    <p>#Python</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#DiscordAPI</p>
+                                                </div>
                                             </div>
-                                            <div class="stack-for-project">
-                                                <p>#DiscordAPI</p>
+                                        </div>
+                                        <div class="card-buttons"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Проект 2 -->
+                            <div class="swiper-slide">
+                                <div class="project-card">
+                                    <div class="project-img">
+                                        <img
+                                            src="img/ca2023.png"
+                                            alt="CA 2023 Project"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div class="project-info">
+                                        <div class="project-main-info">
+                                            <h2>Christmas Adventure 2023</h2>
+                                            <p class="about">
+                                                The game was created on December
+                                                31, 2023. My role: team leader,
+                                                programmer, designer, and sound
+                                                engineer. In this first project,
+                                                I improved problem-solving
+                                                skills, created the design,
+                                                wrote the script, and supported
+                                                coding. Our team brought the
+                                                game to the top.
+                                            </p>
+                                            <div class="stacks-for-project">
+                                                <div class="stack-for-project">
+                                                    <p>#Python</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#PyGame</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Photoshop</p>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="card-buttons">
+                                            <!-- <button class="btn-more">
+                                                More...
+                                            </button> -->
+                                            <a
+                                                href="https://github.com/Tripchanski/Christmas_Adventure_2023"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <button class="btn-link">
+                                                    <img
+                                                        src="img/Github.svg"
+                                                        alt="Link"
+                                                        loading="lazy"
+                                                    />
+                                                </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="swiper-slide">
                                 <div class="project-card">
-                                    <img
-                                        src="https://via.placeholder.com/300x300"
-                                        alt="Проект 1"
-                                        loading="lazy"
-                                    />
-                                    <div class="">
-                                        <h2>Проект 2</h2>
-                                        <p>Краткое описание проекта.</p>
+                                    <div class="project-img">
+                                        <img
+                                            src="img/Flare.svg"
+                                            alt="Flare"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div class="project-info">
+                                        <div class="project-main-info">
+                                            <h2>FlareRestaurant</h2>
+                                            <p class="about">
+                                                Second Team Project Completed in
+                                                July 2023. My role: team leader,
+                                                programmer, and designer. We
+                                                developed our first full-fledged
+                                                website, which turned out to be
+                                                quite successful. The main goal
+                                                was to showcase the knowledge
+                                                gained over a year of learning.
+                                            </p>
+                                            <div class="stacks-for-project">
+                                                <div class="stack-for-project">
+                                                    <p>#Python</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Django</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#SQL</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Figma</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#HTML</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#CSS</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#JavaScript</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#JQuery</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-buttons">
+                                            <!-- <button class="btn-more">
+                                                More...
+                                            </button> -->
+                                            <a
+                                                href="https://github.com/Tripchanski/FlareRestaurant"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <button class="btn-link">
+                                                    <img
+                                                        src="img/Github.svg"
+                                                        alt="Link"
+                                                        loading="lazy"
+                                                    />
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="project-card">
+                                    <div class="project-img">
+                                        <img
+                                            src="img/SeCrew.svg"
+                                            alt="Flare"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div class="project-info">
+                                        <div class="project-main-info">
+                                            <h2>SeCrew</h2>
+                                            <p class="about">
+                                                Landing page mockup for a
+                                                fictional security services
+                                                company. The project aims to
+                                                showcase design skills,
+                                                including the use of color
+                                                psychology, typography, proper
+                                                spacing, and content hierarchy.
+                                                The focus is also on
+                                                responsiveness, ensuring a
+                                                seamless user experience across
+                                                different devices.
+                                            </p>
+                                            <div class="stacks-for-project">
+                                                <div class="stack-for-project">
+                                                    <p>#Figma</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Adaptive_Design</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Color_Psychology</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Typography</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Spacing</p>
+                                                </div>
+                                                <div class="stack-for-project">
+                                                    <p>#Hierarchy</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-buttons">
+                                            <!-- <button class="btn-more">
+                                                More...
+                                            </button> -->
+                                            <a
+                                                href="https://www.figma.com/proto/K7NYvGuL8fkVOagFrkPZLw/Landing?node-id=2-3&t=05Jsx0NBg1tINr5O-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A3"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <button class="btn-link">
+                                                    <img
+                                                        src="img/Figma.svg"
+                                                        alt="Link"
+                                                        loading="lazy"
+                                                    />
+                                                </button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Кнопки управления -->
+                        <!-- Навигация Swiper -->
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- Контакты -->
             <div class="frame" id="contacts">
                 <div class="content">
-                    <h1>Contact Me</h1>
-                    <p>
-                        Feel free to reach out to me through any of the
-                        following methods.
-                    </p>
+                    <div class="contacts">
+                        <div class="contact">
+                            <a
+                                href="https://t.me/Trip_Tripchanski"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                ><img
+                                    src="img/Telegram.svg"
+                                    alt="Telegram"
+                                />@Trip_Tripchanski</a
+                            >
+                        </div>
+                        <div class="contact">
+                            <a
+                                href="https://github.com/Tripchanski"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                ><img
+                                    src="img/Github.svg"
+                                    alt="Github"
+                                />Tripchanski</a
+                            >
+                        </div>
+                        <div class="contact">
+                            <a
+                                href="https://www.linkedin.com/in/trip-tripchanski-428299279/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                ><img
+                                    src="img/Linkedin.svg"
+                                    alt="LinkedIN"
+                                />Trip Tripchanski</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Футер -->
         <footer>
-            <button class="btn" id="adout-me-btn" data-target="about-me">
+            <button class="btn" id="about-me-btn" data-target="about-me">
                 <img src="img/Person.svg" alt="AboutMe" />About me
             </button>
             <button class="btn" id="stack-btn" data-target="stack">
@@ -211,6 +447,7 @@
             </button>
         </footer>
 
+        <!-- Скрипты -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
         <script src="script.js"></script>
     </body>

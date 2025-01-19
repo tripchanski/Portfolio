@@ -1,9 +1,18 @@
-body,
-html {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
 
+button,
+a {
+    outline: none; /* Убирает стандартное выделение */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+body,
+html {
     background: #eeeeee;
     color: #333333;
 
@@ -17,10 +26,27 @@ html {
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
+#typing-text {
+    font-weight: 300;
+    font-size: clamp(26px, 5vw, 68px);
+}
 
-body{
+body {
     display: flex;
     flex-direction: column;
+}
+
+.content {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+header .btn {
+    border: none;
+    background-color: none;
+    background: none;
+    cursor: pointer;
 }
 
 header,
@@ -34,13 +60,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     height: 10vh;
     padding: 20px 10vw;
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
-
-    /* z-index: 10; */
 }
 
 header .logo {
@@ -163,7 +185,6 @@ header span {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-
 .swiper {
     display: flex;
     justify-content: center;
@@ -186,62 +207,211 @@ header span {
 .project-card {
     display: flex;
     flex-direction: row;
-    background: #fff;
+    background: #f0eeee;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     text-align: center;
-
+    gap: 1rem;
     width: 80%;
     height: 70%;
     padding: 15px;
     margin: auto;
+    position: relative;
 }
 
 .project-card img {
-    width: 100%;
-    height: auto;
+    height: 100%;
+    width: auto;
     border-radius: 10px;
     margin-bottom: 15px;
 }
 
+.project-img {
+    height: 100%;
+    width: auto;
+}
+
+.project-card .project-info {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 2em;
+    /* justify-content: space-between; */
+}
+
 .project-card h2 {
-    font-size: 1.2rem;
+    font-size: clamp(1.25rem, 2vw, 2rem);
     color: #000000;
     margin: 10px 0;
 }
 
 .project-card p {
     font-size: 1rem;
+    line-height: 1.2rem;
     color: #000000;
 }
 
-/* Кнопки управления */
+.project-card .stacks-for-project {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.project-card .stack-for-project {
+    padding: 0.25rem 0.5rem;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-buttons button {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: none;
+    border: none;
+    padding: 1rem 1.625rem;
+    font-size: 1rem;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 0.25em;
+    position: relative;
+    transition: 0.3s;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.card-buttons .btn-more {
+    /* display: none; */
+    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: -10px -10px -10px white;
+    width: 70%;
+}
+
+.card-buttons .btn-link {
+    display: flex;
+    padding: 0.5rem;
+}
+.card-buttons .btn-link img {
+    width: 3em;
+    height: 3em;
+    margin-bottom: 0;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
     --swiper-navigation-color: black !important;
 }
 
-
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-/* Контент фрейма */
-.content {
+.contacts {
     display: flex;
-    text-align: center;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    color: black;
 }
 
-header .btn {
-    border: none;
-    background-color: none;
-    cursor: pointer;
+.contacts .contact {
+    display: flex;
+    flex-direction: column;
 }
+
+.contacts .contact img {
+    width: 10em;
+    height: 10em;
+}
+
+.contacts .contact a {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: black;
+    text-decoration: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .project-card p.about {
+        display: none;
+    }
+
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 90%;
+        padding: 10px;
+    }
+
+    .project-card img,
+    .project-img {
+        margin-bottom: 0;
+        height: auto;
+        width: 100%;
+    }
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 300px; /* Укажите ширину карточки, если нужно */
+    }
+
+    .project-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* Занимает всё доступное пространство */
+    }
+
+    .project-main-info {
+        margin-bottom: auto; /* Сдвигает всё вверх */
+    }
+
+    .card-buttons {
+        display: flex;
+        justify-content: flex-end; /* Размещает кнопки справа */
+        gap: 8px; /* Расстояние между кнопками */
+        margin-top: 16px; /* Отступ сверху */
+    }
+
+    .project-card .project-info {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        justify-content: space-between;
+        gap: auto;
+    }
+
+    .card-buttons .btn-more {
+        display: flex;
+    }
+    .card-buttons .btn-link {
+        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: -10px -10px -10px white;
+    }
+
+    .card-frame {
+        display: flex;
+        flex-direction: column;
+        gap:;
+    }
+}
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /* Футер */
 footer {
@@ -300,11 +470,6 @@ footer .btn.active::after {
     opacity: 1;
 }
 
-footer .btn:hover {
-    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
-    box-shadow: -10px -10px -10px white;
-}
-
 footer .btn::after {
     content: "";
     position: absolute;
@@ -321,11 +486,6 @@ footer .btn::after {
         transform 0.3s;
 }
 
-footer .btn:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(8px);
-}
-
 .hidden {
     display: none;
 }
@@ -339,13 +499,6 @@ footer .btn:hover::after {
     background-color: #333333;
     color: white;
 }
-
-#typing-text {
-    font-weight: 300;
-    font-size: clamp(26px, 5vw, 68px);
-}
-
-/*Короче триугольни вверх, вниз вот так то да*/
 
 @keyframes fadeOutAndUp {
     0% {
@@ -369,23 +522,80 @@ footer .btn:hover::after {
     }
 }
 
-@media (hover: none) and (pointer: coarse) {
-    #stack_container {
-        -webkit-overflow-scrolling: touch; /* Плавный скроллинг для iOS */
+@media (hover: hover) {
+    footer .btn:hover::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(8px);
+    }
+    footer .btn:hover {
+        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: -10px -10px -10px white;
+    }
+
+    .card-buttons button:hover {
+        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: -10px -10px -10px white;
     }
 }
 
-@media (max-width: 800px) {
+@media (hover: none) and (pointer: coarse) {
+    #stack_container {
+        -webkit-overflow-scrolling: touch;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none !important;
+    }
+}
 
-    .content{
-        height: 70vh;
+body {
+    height: 100vh;
+}
+
+header {
+    height: 10%;
+}
+
+.frames-container {
+    height: 70%;
+}
+
+footer {
+    height: 20%;
+    display: flex;
+    align-items: start;
+    z-index: 20;
+}
+
+@media (max-width: 800px) {
+    /* .content {
+        height: 100%;
+    } */
+    .contacts {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .contact a {
+        gap: 1em;
+        align-items: center;
+    }
+
+    .contacts .contact img {
+        width: 5em;
+        height: 5%;
+    }
+
+    footer .btn.active::after,
+    footer .btn::after {
+        top: -0.5rem;
     }
 
     #stack_container {
-        flex-wrap: wrap; /* Разрешаем перенос элементов */
-        flex-direction: column; /* Строим элементы сверху вниз */
-        max-height: 80vh; /* Ограничиваем высоту */
-        gap: 1rem; /* Расстояние между элементами */
+        flex-wrap: wrap;
+        flex-direction: column;
+        max-height: 80%;
+        gap: 1rem;
         overflow-x: auto;
         scroll-behavior: smooth;
     }
@@ -396,7 +606,7 @@ footer .btn:hover::after {
     }
 
     #stack_container > * {
-        flex: 0 0 auto; /* Отключаем автоматическое растягивание */
+        flex: 0 0 auto;
     }
 
     footer .btn img {
@@ -414,14 +624,6 @@ footer .btn:hover::after {
 
     footer .btn.active {
         font-size: 0;
-        padding: 1rem;
-    }
-
-    .btn::after {
-        /* display: none; */
-    }
-
-    .btn.active {
         padding: 1rem;
     }
 }
