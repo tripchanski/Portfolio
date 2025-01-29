@@ -4,17 +4,48 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* Цвета */
+    --color-background: #eeeeee;
+    --color-text: #333333;
+    --color-white: #ffffff;
+    --color-shadow: rgba(0, 0, 0, 0.2);
+
+    /* Размеры шрифтов */
+    --font-size-small: clamp(0.875rem, 1vw, 1rem);
+    --font-size-medium: clamp(1rem, 1.5vw, 1.25rem);
+    --font-size-large: clamp(1.625rem, 3vw, 2.625rem);
+    --font-size-xlarge: clamp(4.25rem, 10vw, 6.875rem);
+
+    /* Отступы */
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+
+    /* Радиусы */
+    --border-radius-small: 0.25em;
+    --border-radius-medium: 1em;
+
+    /* Анимации */
+    --transition-default: 0.3s ease;
+
+    --box-shadow-default: 12px 12px 12px rgba(0, 0, 0, 0.1);
+    --box-shadow-card: 0 4px 8px var(--color-shadow);
+    --container-padding: min(12.5rem, 5%);
+    --card-gap: 1rem;
+}
+
 button,
 a {
-    outline: none; /* Убирает стандартное выделение */
+    outline: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.2);
     text-decoration: none;
 }
 
 body,
 html {
-    background: #eeeeee;
-    color: #333333;
+    background: var(--color-background);
+    color: var(--color-text);
 
     height: 100vh;
 
@@ -28,7 +59,7 @@ html {
 
 #typing-text {
     font-weight: 300;
-    font-size: clamp(26px, 5vw, 68px);
+    font-size: var(--font-size-large);
 }
 
 body {
@@ -47,13 +78,7 @@ header .btn {
     background-color: none;
     background: none;
     cursor: pointer;
-}
-
-header,
-.frames-container,
-footer {
-    padding-left: min(12.5rem, 5%);
-    padding-right: min(12.5rem, 5%);
+    height: 10%;
 }
 
 header {
@@ -79,8 +104,7 @@ header span {
     display: flex;
     overflow: visible;
     justify-content: center;
-    height: 75vh;
-    /* z-index: 10; */
+    height: 70%;
 }
 
 .frame {
@@ -128,19 +152,16 @@ header span {
 
     width: 18%;
     height: 40%;
-    /* padding: 1em 1.625em; */
-    /* background: #ffffff; */
     border-radius: 1em;
-    /* box-shadow: 0 1em 1em rgba(0, 0, 0, 0.2); */
     justify-content: center;
     align-items: center;
     text-align: center;
     transition:
         transform 0.3s ease,
-        box-shadow 0.3s ease; /* Увеличили время */
+        box-shadow 0.3s ease;
     transform-style: preserve-3d;
-    perspective: 50em; /* Сильнее перспектива */
-    will-change: transform; /* Оптимизация для плавности */
+    perspective: 50em;
+    will-change: transform;
 }
 
 #stack {
@@ -179,12 +200,6 @@ header span {
     gap: 1rem;
 }
 
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
 .swiper {
     display: flex;
     justify-content: center;
@@ -207,15 +222,15 @@ header span {
 .project-card {
     display: flex;
     flex-direction: row;
-    background: #f0eeee;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--color-white);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 4px 8px var(--color-shadow);
     overflow: hidden;
     text-align: center;
     gap: 1rem;
     width: 80%;
     height: 70%;
-    padding: 15px;
+    padding: var(--spacing-medium);
     margin: auto;
     position: relative;
 }
@@ -288,7 +303,6 @@ header span {
 }
 
 .card-buttons .btn-more {
-    /* display: none; */
     box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
     box-shadow: -10px -10px -10px white;
     width: 70%;
@@ -336,77 +350,6 @@ header span {
     text-decoration: none;
 }
 
-@media (hover: none) and (pointer: coarse) {
-    .project-card p.about {
-        display: none;
-    }
-
-    .project-card {
-        display: flex;
-        flex-direction: column;
-        width: 90%;
-        height: 90%;
-        padding: 10px;
-    }
-
-    .project-card img,
-    .project-img {
-        margin-bottom: 0;
-        height: auto;
-        width: 100%;
-    }
-    .project-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        padding: 16px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        max-width: 300px; /* Укажите ширину карточки, если нужно */
-    }
-
-    .project-info {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1; /* Занимает всё доступное пространство */
-    }
-
-    .project-main-info {
-        margin-bottom: auto; /* Сдвигает всё вверх */
-    }
-
-    .card-buttons {
-        display: flex;
-        justify-content: flex-end; /* Размещает кнопки справа */
-        gap: 8px; /* Расстояние между кнопками */
-        margin-top: 16px; /* Отступ сверху */
-    }
-
-    .project-card .project-info {
-        display: flex;
-        flex-direction: column;
-        text-align: start;
-        justify-content: space-between;
-        gap: auto;
-    }
-
-    .card-buttons .btn-more {
-        display: flex;
-    }
-    .card-buttons .btn-link {
-        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
-        box-shadow: -10px -10px -10px white;
-    }
-
-    .card-frame {
-        display: flex;
-        flex-direction: column;
-        gap:;
-    }
-}
-
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -417,8 +360,8 @@ header span {
 footer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 15vh;
+    align-items: start;
+    height: 20%;
     gap: 26px;
     padding: 10px 0;
 }
@@ -429,32 +372,17 @@ footer .btn {
     flex-direction: column;
     background: none;
     border: none;
-    padding: 1rem 1.625rem;
-    font-size: 1rem;
+    padding: var(--spacing-medium) calc(var(--spacing-medium) * 1.625);
+    font-size: var(--font-size-medium);
     cursor: pointer;
     align-items: center;
-    border-radius: 0.25em;
+    border-radius: var(--border-radius-small);
     position: relative;
-    transition: 0.3s;
+    transition: var(--transition-default);
 }
 
 footer .btn img {
     display: none;
-}
-
-footer .btn.active {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: none;
-    border: none;
-    padding: 1rem 1.625rem;
-    font-size: 1rem;
-    cursor: pointer;
-    align-items: center;
-    border-radius: 0.25em;
-    position: relative; /* Для позиционирования псевдоэлемента */
-    transition: 0.3s;
 }
 
 footer .btn.active::after {
@@ -486,42 +414,6 @@ footer .btn::after {
         transform 0.3s;
 }
 
-.hidden {
-    display: none;
-}
-
-::selection {
-    background-color: #333333;
-    color: white;
-}
-
-::-webkit-selection {
-    background-color: #333333;
-    color: white;
-}
-
-@keyframes fadeOutAndUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100px);
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(100px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 @media (hover: hover) {
     footer .btn:hover::after {
         opacity: 1;
@@ -539,6 +431,69 @@ footer .btn::after {
 }
 
 @media (hover: none) and (pointer: coarse) {
+    .project-card p.about {
+        display: none;
+    }
+
+    .project-card img,
+    .project-img {
+        margin-bottom: 0;
+        height: auto;
+        width: 100%;
+    }
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 90%;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+    }
+
+    .project-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .project-main-info {
+        margin-bottom: auto;
+    }
+
+    .card-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .project-card .project-info {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        justify-content: space-between;
+        gap: auto;
+    }
+
+    .card-buttons .btn-more {
+        display: flex;
+    }
+    .card-buttons .btn-link {
+        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: -10px -10px -10px white;
+    }
+
+    .card-frame {
+        display: flex;
+        flex-direction: column;
+        gap:;
+    }
+
     #stack_container {
         -webkit-overflow-scrolling: touch;
     }
@@ -548,29 +503,7 @@ footer .btn::after {
     }
 }
 
-body {
-    height: 100vh;
-}
-
-header {
-    height: 10%;
-}
-
-.frames-container {
-    height: 70%;
-}
-
-footer {
-    height: 20%;
-    display: flex;
-    align-items: start;
-    z-index: 20;
-}
-
 @media (max-width: 800px) {
-    /* .content {
-        height: 100%;
-    } */
     .contacts {
         flex-direction: column;
         gap: 1em;
@@ -625,5 +558,42 @@ footer {
     footer .btn.active {
         font-size: 0;
         padding: 1rem;
+    }
+}
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.hidden {
+    display: none;
+}
+
+::selection {
+    background-color: #333333;
+    color: white;
+}
+
+::-webkit-selection {
+    background-color: #333333;
+    color: white;
+}
+
+@keyframes fadeOutAndUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
