@@ -1,3 +1,5 @@
+@import url('chillax.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +8,9 @@
 
 :root {
     /* Цвета */
+
+    --frame-size: ;
+
     --color-background: #eeeeee;
     --color-text: #333333;
     --color-white: #ffffff;
@@ -54,7 +59,7 @@ html {
 
     overflow: hidden;
 
-    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-family: "Chillax-Regular", sans-serif;
 }
 
 #typing-text {
@@ -170,7 +175,6 @@ header span {
 
 #stack .stack_name {
     font-weight: 400;
-    /* font-size: 2.625rem; */
     font-size: clamp(1.625rem, 3vw, 2.625rem);
     line-height: 120%;
 }
@@ -252,7 +256,6 @@ header span {
     flex-direction: column;
     text-align: start;
     gap: 2em;
-    /* justify-content: space-between; */
 }
 
 .project-card h2 {
@@ -491,7 +494,6 @@ footer .btn::after {
     .card-frame {
         display: flex;
         flex-direction: column;
-        gap:;
     }
 
     #stack_container {

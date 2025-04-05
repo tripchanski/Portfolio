@@ -1,0 +1,22 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root {
+      --line-color-light: black;
+      --line-color-dark: white;
+    }
+    path {
+      stroke: var(--line-color-light);
+      stroke-width: 20;
+      stroke-linecap: round;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      path {
+        stroke: var(--line-color-dark);
+      }
+    }
+  </style>
+  <path d="M15 233.5C37.5 282 104.053 348.947 205 344.5C318.5 339.5 377.5 249 384 180.5" />
+  <path d="M125 56V156" />
+  <path d="M265 56V156" />
+</svg>

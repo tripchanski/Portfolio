@@ -34,10 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     circleY = 0;
   const circleSpeed = 0.02;
 
-  document.addEventListener("mousemove", (event) => {
+  document.addEventListener("mousemove", throttle((event) => {
     mouseX = event.clientX;
     mouseY = event.clientY;
-  });
+  }, 16));
 
   function animateCircle() {
     circleX += (mouseX + 10 - circleX) * circleSpeed;
@@ -59,6 +59,27 @@ document.addEventListener("DOMContentLoaded", () => {
       welcomeText2.style.animation = "fadeIn 0.5s forwards";
     }, 500);
   }, 1500);
+
+  function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function() {
+      const context = this;
+      const args = arguments;
+      if (!lastRan) {
+        func.apply(context, args);
+        lastRan = Date.now();
+      } else {
+        clearTimeout(lastFunc);
+        lastFunc = setTimeout(function() {
+          if ((Date.now() - lastRan) >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    };
+  }
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
