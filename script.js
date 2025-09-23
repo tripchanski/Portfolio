@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTimeout(typingTimeout);
         document.getElementById("typing-text").innerHTML = "";
         const textAboutMe =
-          "My name is Artur. \n I am a very sociable and friendly person. \n I like programming and UI/UX Design.";
+          "My name is Artur.\nI am a sociable and friendly person.\nI like programming and creating useful projects.";
         const speedTextAboutMe = 50; // speedTime (мс)
         let index = 0;
 
