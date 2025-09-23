@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           },
-          speed: 400, // Уменьшите скорость анимации
+          speed: 400,
         });
       }
 
