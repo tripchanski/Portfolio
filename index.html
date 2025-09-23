@@ -1,12 +1,9 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Основные метаданные -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Mamedov Artur</title>
-
-        <!-- Иконка и стили -->
 
         <!-- <link rel="icon" media="(prefers-color-scheme: light)" href="img/Logo_Dark.png" type="image/png">
         <link rel="icon" media="(prefers-color-scheme: dark)" href="img/Logo_Light.png" type="image/png"> -->
@@ -14,14 +11,14 @@
         <link rel="icon" href="img/Logo_Dark.svg" type="image/svg">
         <link rel="stylesheet" href="styles.css" />
 
-        <!-- Стили Swiper -->
+        <!-- Swiper -->
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
         />
     </head>
     <body>
-        <!-- Хедер -->
+
         <header>
             <span>© Mamedov Artur 2025</span>
             <button class="btn" id="welcome-btn" data-target="welcome">
@@ -29,9 +26,9 @@
             </button>
         </header>
 
-        <!-- Основной контейнер -->
+
         <div class="frames-container">
-            <!-- Приветственный экран -->
+
             <div class="frame active" id="welcome">
                 <div class="content">
                     <h1 class="text" id="welcome-text-1">You’re Welcome.</h1>
@@ -41,17 +38,17 @@
                 </div>
             </div>
 
-            <!-- О себе -->
+
             <div class="frame" id="about-me">
                 <div class="content">
                     <div id="typing-text"></div>
                 </div>
             </div>
 
-            <!-- Навыки -->
+
             <div class="frame" id="stack">
                 <div class="content" id="stack_container">
-                    <!-- Карточки навыков -->
+
                     <div class="stack_block card">
                         <img src="img/stack/PythonLogo.svg" alt="PythonLogo" />
                         <div class="stack_content">
@@ -137,12 +134,12 @@
                 </div>
             </div>
 
-            <!-- Проекты -->
+
             <div class="frame" id="projects">
                 <div class="content">
                     <div class="swiper">
                         <div class="swiper-wrapper">
-                            <!-- Проект 1 -->
+
                             <div class="swiper-slide">
                                 <div class="project-card">
                                     <div class="project-img">
@@ -183,7 +180,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Проект 2 -->
+
                             <div class="swiper-slide">
                                 <div class="project-card">
                                     <div class="project-img">
@@ -378,7 +375,7 @@
                 </div>
             </div>
 
-            <!-- Контакты -->
+
             <div class="frame" id="contacts">
                 <div class="content">
                     <div class="contacts">
@@ -420,7 +417,7 @@
             </div>
         </div>
 
-        <!-- Футер -->
+
         <footer>
             <button class="btn" id="about-me-btn" data-target="about-me">
                 <img src="img/Person.svg" alt="AboutMe" />About me
@@ -436,7 +433,6 @@
             </button>
         </footer>
 
-        <!-- Скрипты -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
         <script src="script.js"></script>
     </body>
