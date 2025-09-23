@@ -9,9 +9,9 @@
 
     --frame-size: ;
 
-    --color-background: #eeeeee;
+    --color-background: #F7F7F7;
     --color-text: #333333;
-    --color-white: #ffffff;
+    --color-white: #fff;
     --color-shadow: rgba(0, 0, 0, 0.2);
 
 
@@ -54,6 +54,7 @@ html {
 
     display: flex;
     flex-direction: column;
+    font-family: "Cabin", sans-serif;
 
     overflow: hidden;
 }
@@ -88,7 +89,8 @@ header {
     align-items: center;
 
     height: 10vh;
-    padding: 20px 10vw;
+    width: 86%;
+    margin: 0 7%;
 }
 
 header .logo {
@@ -112,8 +114,9 @@ header span {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 86%;
     height: 100%;
+    margin: 0 7%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,6 +124,8 @@ header span {
     transition:
         opacity 0.5s ease,
         transform 0.5s ease;
+    background-color: var(--color-white);
+    border-radius: 40px;
     z-index: 1;
 }
 
@@ -221,7 +226,8 @@ header span {
 .project-card {
     display: flex;
     flex-direction: row;
-    background: var(--color-white);
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(15px);
     border-radius: var(--border-radius-medium);
     box-shadow: 0 4px 8px var(--color-shadow);
     overflow: hidden;
@@ -300,6 +306,13 @@ header span {
     right: 10px;
 }
 
+p.about {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
 .card-buttons .btn-more {
     box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
     box-shadow: -10px -10px -10px white;
@@ -360,28 +373,33 @@ footer {
     justify-content: center;
     align-items: start;
     height: 20%;
-    gap: 26px;
+    width: 86%;
+    margin: 0 7%;
+    gap: 2%;
     padding: 10px 0;
 }
 
 footer .btn {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 4px;
     background: none;
+    background-color: var(--color-white);
     border: none;
     padding: var(--spacing-medium) calc(var(--spacing-medium) * 1.625);
     font-size: var(--font-size-medium);
     cursor: pointer;
     align-items: center;
-    border-radius: var(--border-radius-small);
+    width: 23.5%;
+    border-radius: 4px;
     position: relative;
     transition: var(--transition-default);
 }
 
-footer .btn img {
+/* footer .btn img {
     display: none;
-}
+} */
 
 footer .btn.active::after {
     content: "";
@@ -389,10 +407,10 @@ footer .btn.active::after {
     bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 0.6rem;
-    height: 0.6rem;
-    background-color: #333;
-    border-radius: 50%;
+    width: 4.2rem;
+    height: 0.2rem;
+    background-color: #070707;
+    border-radius: 2px;
     opacity: 1;
 }
 
@@ -402,28 +420,28 @@ footer .btn::after {
     bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 0.6rem;
-    height: 0.6rem;
-    background-color: #333;
-    border-radius: 50%;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #070707;
+    border-radius: 2px;
     opacity: 0;
     transition:
         opacity 0.3s,
-        transform 0.3s;
+        transform 0.3s,
+        width 0.55s;
 }
 
 @media (hover: hover) {
     footer .btn:hover::after {
         opacity: 1;
+        width: 4.2rem;
         transform: translateX(-50%) translateY(8px);
     }
     footer .btn:hover {
-        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
         box-shadow: -10px -10px -10px white;
     }
 
     .card-buttons button:hover {
-        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
         box-shadow: -10px -10px -10px white;
     }
 }
@@ -593,4 +611,20 @@ footer .btn::after {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 3;
 }
