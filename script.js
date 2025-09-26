@@ -2,12 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".btn");
   const frames = document.querySelectorAll(".frame");
   const cards = document.querySelectorAll(".card");
+  const body = document.querySelectorAll(".body");
+
 
   const welcomeText1 = document.querySelector("#welcome-text-1");
   const welcomeText2 = document.querySelector("#welcome-text-2");
 
   const moreButton = document.querySelector(".btn-more");
   const overlay = document.querySelector(".overlay");
+
+  const projectCards = document.querySelectorAll(".project-card");
+  const projectTexts = document.querySelectorAll(".project-text");
+  const arrows = document.querySelectorAll(".swiper-button-prev, .swiper-button-next");
+  const logoPaths = document.querySelectorAll(".logo-path");
+
+  const themeButton = document.querySelector(".theme-icon");
+  const themeButtonDark = document.querySelector(".theme-icon-dark");
 
   let isTypingAboutMe = true;
   let typingTimeout = null;
@@ -88,6 +98,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const targetBtnFrame = document.getElementById(button.getAttribute("id"));
 
+      if (targetId === "theme") {
+        body.forEach((body) => body.classList.toggle("dark"));
+        frames.forEach((frame) => frame.classList.toggle("dark"));
+        buttons.forEach((btn) => btn.classList.toggle("dark"));
+        arrows.forEach((arrow) => arrow.classList.toggle("dark"));
+        projectCards.forEach((card) => card.classList.toggle("dark"));
+        projectTexts.forEach((text) => text.classList.toggle("dark"));
+        logoPaths.forEach((path) => path.classList.toggle("dark"));
+        themeButton.classList.toggle("dark");
+        themeButtonDark.classList.toggle("dark");
+      } else {
       frames.forEach((frame) => frame.classList.remove("active"));
       targetFrame.classList.add("active");
 
@@ -196,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           },
-          speed: 400,
+          speed: 400, 
         });
       }
 
@@ -210,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
         moreButton.addEventListener("click", () => {
           overlay.classList.toggle("visible");
         });
-      }
+      }}
     });
   });
 });

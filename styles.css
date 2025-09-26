@@ -5,13 +5,12 @@
 }
 
 :root {
-
-
-    --frame-size: ;
-
-    --color-background: #eeeeee;
-    --color-text: #333333;
-    --color-white: #ffffff;
+    --color-background: #F7F7F7;
+    --color-background-dark: #000;
+    --color-text: #070707;
+    --color-text-dark: #DFE9FF;
+    --color-white: #fff;
+    --color-dark: #171717;
     --color-shadow: rgba(0, 0, 0, 0.2);
 
 
@@ -54,8 +53,15 @@ html {
 
     display: flex;
     flex-direction: column;
+    font-family: "Cabin", sans-serif;
 
     overflow: hidden;
+}
+
+body.dark{
+    background: var(--color-background-dark);
+    color: var(--color-text-dark);
+    transition: var(--transition-default);
 }
 
 #typing-text {
@@ -88,15 +94,51 @@ header {
     align-items: center;
 
     height: 10vh;
-    padding: 20px 10vw;
+    width: 86%;
+    margin: 0 7%;
 }
 
-header .logo {
-    height: 2rem;
+header .logo {height: 2rem;}
+header span {font-size: 1rem;}
+
+
+
+.btns{
+    display: flex;
+    width: 35%;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header span {
-    font-size: 1rem;
+ .theme-icon{
+    display: inline;
+    position: absolute;
+    height: 12em;  
+    top: 0px;
+    z-index: 10;
+}
+
+.theme-icon-dark{
+    display: none;
+    position: absolute;
+    height: 12em;  
+    top: 0px;
+    z-index: 10;
+}
+
+.theme-icon.dark{
+    display: none;
+    transition: var(--transition-default);
+}
+
+.theme-icon-dark.dark{
+    display: inline;
+    transition: var(--transition-default);
+}
+
+.btn.dark .logo path {
+    stroke: var(--color-text-dark);
+    transition: var(--transition-default);
 }
 
 .frames-container {
@@ -112,8 +154,9 @@ header span {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 86%;
     height: 100%;
+    margin: 0 7%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,7 +164,13 @@ header span {
     transition:
         opacity 0.5s ease,
         transform 0.5s ease;
+    background-color: var(--color-white);
+    border-radius: 40px;
     z-index: 1;
+}
+
+.frame.dark{
+    background-color: var(--color-dark);
 }
 
 .frame.active {
@@ -221,7 +270,8 @@ header span {
 .project-card {
     display: flex;
     flex-direction: row;
-    background: var(--color-white);
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(15px);
     border-radius: var(--border-radius-medium);
     box-shadow: 0 4px 8px var(--color-shadow);
     overflow: hidden;
@@ -233,6 +283,7 @@ header span {
     margin: auto;
     position: relative;
 }
+
 
 .project-card img {
     height: 100%;
@@ -255,15 +306,28 @@ header span {
 
 .project-card h2 {
     font-size: clamp(1.25rem, 2vw, 2rem);
-    color: #000000;
     margin: 10px 0;
 }
 
 .project-card p {
     font-size: 1rem;
     line-height: 1.2rem;
-    color: #000000;
 }
+
+.project-text {
+    color: var(--color-text);
+}
+
+.project-text.dark {
+    color: var(--color-text-dark);
+    transition: var(--transition-default);
+}
+
+.project-card.dark {
+    background: var(--color-dark);
+    transition: var(--transition-default);
+}
+
 
 .project-card .stacks-for-project {
     display: flex;
@@ -271,8 +335,9 @@ header span {
     gap: 0.25rem;
 }
 
+
 .project-card .stack-for-project {
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 2rem;
     background-color: rgba(0, 0, 0, 0.05);
 }
@@ -300,6 +365,13 @@ header span {
     right: 10px;
 }
 
+p.about {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
 .card-buttons .btn-more {
     box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
     box-shadow: -10px -10px -10px white;
@@ -320,6 +392,13 @@ header span {
 .swiper-button-next {
     --swiper-navigation-color: black !important;
 }
+
+.swiper-button-prev,
+.swiper-button-next.dark {
+    --swiper-navigation-color: var(--color-text-dark) !important;
+    transition: var(--transition-default);
+}
+
 
 .contacts {
     display: flex;
@@ -348,11 +427,6 @@ header span {
     text-decoration: none;
 }
 
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /* Футер */
 footer {
@@ -360,28 +434,40 @@ footer {
     justify-content: center;
     align-items: start;
     height: 20%;
-    gap: 26px;
+    width: 86%;
+    margin: 0 7%;
+    gap: 3.3%;
     padding: 10px 0;
 }
 
 footer .btn {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 4px;
     background: none;
+    background-color: var(--color-white);
     border: none;
     padding: var(--spacing-medium) calc(var(--spacing-medium) * 1.625);
     font-size: var(--font-size-medium);
     cursor: pointer;
     align-items: center;
-    border-radius: var(--border-radius-small);
+    width: 30%;
+    border-radius: 4px;
     position: relative;
     transition: var(--transition-default);
 }
 
-footer .btn img {
-    display: none;
+
+footer .btn.dark {
+    background-color: var(--color-dark);
+    color: var(--color-text-dark);
+    transition: var(--transition-default);
 }
+
+/* footer .btn img {
+    display: none;
+} */
 
 footer .btn.active::after {
     content: "";
@@ -389,10 +475,10 @@ footer .btn.active::after {
     bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 0.6rem;
-    height: 0.6rem;
-    background-color: #333;
-    border-radius: 50%;
+    width: 4.2rem;
+    height: 0.2rem;
+    background-color: #070707;
+    border-radius: 2px;
     opacity: 1;
 }
 
@@ -402,28 +488,34 @@ footer .btn::after {
     bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 0.6rem;
-    height: 0.6rem;
-    background-color: #333;
-    border-radius: 50%;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #070707;
+    border-radius: 2px;
     opacity: 0;
     transition:
         opacity 0.3s,
-        transform 0.3s;
+        transform 0.3s,
+        width 0.55s;
+}
+
+
+footer .btn.dark svg path {
+    stroke: var(--color-text-dark);
+    transition: var(--transition-default);
 }
 
 @media (hover: hover) {
     footer .btn:hover::after {
         opacity: 1;
+        width: 4.2rem;
         transform: translateX(-50%) translateY(8px);
     }
     footer .btn:hover {
-        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
         box-shadow: -10px -10px -10px white;
     }
 
     .card-buttons button:hover {
-        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
         box-shadow: -10px -10px -10px white;
     }
 }
@@ -593,4 +685,20 @@ footer .btn::after {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 3;
 }
