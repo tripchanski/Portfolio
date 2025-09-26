@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const arrows = document.querySelectorAll(".swiper-button-prev, .swiper-button-next");
   const logoPaths = document.querySelectorAll(".logo-path");
 
-  const lampPaths = document.querySelectorAll(".lamp-path");
-  const lampStart = document.querySelectorAll(".lamp-start");
-  const lampStop = document.querySelectorAll(".lamp-stop");
+  const themeButton = document.querySelector(".theme-icon");
+  const themeButtonDark = document.querySelector(".theme-icon-dark");
 
   let isTypingAboutMe = true;
   let typingTimeout = null;
@@ -107,9 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         projectCards.forEach((card) => card.classList.toggle("dark"));
         projectTexts.forEach((text) => text.classList.toggle("dark"));
         logoPaths.forEach((path) => path.classList.toggle("dark"));
-        lampPaths.forEach((path) => path.classList.toggle("dark"));
-        lampStart.forEach((stop) => stop.classList.toggle("dark"));
-        lampStop.forEach((stop) => stop.classList.toggle("dark"));
+        themeButton.classList.toggle("dark");
+        themeButtonDark.classList.toggle("dark");
       } else {
       frames.forEach((frame) => frame.classList.remove("active"));
       targetFrame.classList.add("active");

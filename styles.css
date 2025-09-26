@@ -102,26 +102,6 @@ header .logo {height: 2rem;}
 header span {font-size: 1rem;}
 
 
-.logo .logo-path.dark{
-    stroke: var(--color-text-dark);
-    transition: var(--transition-default);
-}
-
-.theme-icon .lamp-path.dark{
-    stroke: var(--color-background-dark);
-    fill: #707070;
-    transition: var(--transition-default);
-}
-
-.theme-icon .lamp-start.dark{
-    stop-color: #707070;
-    transition: var(--transition-default);
-}
-
-.theme-icon .lamp-stop.dark{
-    stop-color: var(--color-dark);
-    transition: var(--transition-default);
-}
 
 .btns{
     display: flex;
@@ -131,12 +111,35 @@ header span {font-size: 1rem;}
 }
 
  .theme-icon{
+    display: inline;
     position: absolute;
     height: 12em;  
     top: 0px;
     z-index: 10;
 }
 
+.theme-icon-dark{
+    display: none;
+    position: absolute;
+    height: 12em;  
+    top: 0px;
+    z-index: 10;
+}
+
+.theme-icon.dark{
+    display: none;
+    transition: var(--transition-default);
+}
+
+.theme-icon-dark.dark{
+    display: inline;
+    transition: var(--transition-default);
+}
+
+.btn.dark .logo path {
+    stroke: var(--color-text-dark);
+    transition: var(--transition-default);
+}
 
 .frames-container {
     flex: 1;
@@ -494,6 +497,12 @@ footer .btn::after {
         opacity 0.3s,
         transform 0.3s,
         width 0.55s;
+}
+
+
+footer .btn.dark svg path {
+    stroke: var(--color-text-dark);
+    transition: var(--transition-default);
 }
 
 @media (hover: hover) {
