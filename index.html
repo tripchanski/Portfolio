@@ -19,13 +19,39 @@
             href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
         />
     </head>
-    <body>
+    <body class="body">
 
         <header>
             <span>© Mamedov Artur 2025</span>
-            <button class="btn" id="welcome-btn" data-target="welcome">
-                <img src="img/Logo.svg" alt="Logo" class="logo" />
-            </button>
+                <div class="btns">
+                    <button class="btn" id="light-dark-btn" data-target="theme">
+                        <svg width="43" height="112" viewBox="0 0 43 112" fill="none" xmlns="http://www.w3.org/2000/svg"  class="theme-icon">
+                            <path class="lamp-path" d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z" fill="white" stroke="#070707"/>
+                            <path class="lamp-path" d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z" stroke="#070707"/>
+                            <path class="lamp-path" d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z" stroke="#070707"/>
+                            <path class="lamp-path" d="M21.5 35.0667L21.0041 -89.9563L21 -91" stroke="#070707" stroke-width="2"/>
+                            <path class="lamp-path" d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z" fill="#070707" stroke="#070707"/>
+                            <path class="lamp-path" d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z" fill="url(#paint0_linear_485_13)"/>
+                            <mask id="path-7-inside-1_485_13" fill="white">
+                            <path class="lamp-path" d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"/>
+                                </mask>
+                            <path class="lamp-path" d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z" fill="white" fill-opacity="0.25" stroke="#070707" stroke-width="2" mask="url(#path-7-inside-1_485_13)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_485_13" x1="21.5" y1="63.7334" x2="21.5" y2="111.033" gradientUnits="userSpaceOnUse">
+                                     <stop class="lamp-start" stop-color="white"/>
+                                     <stop class="lamp-stop" offset="1" stop-color="white" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </button>
+                    <button class="btn" id="welcome-btn" data-target="welcome">
+                        <svg width="108" height="88" viewBox="0 0 108 88" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
+                            <path class="logo-path" d="M4 54.3113C15.2 84.8891 87.0222 106.222 104 39.1113" stroke="#070707" stroke-width="8" stroke-linecap="round"/>
+                            <path class="logo-path" d="M33.0664 4L32.8886 31.2" stroke="#070707" stroke-width="8" stroke-linecap="round"/>
+                            <path class="logo-path" d="M71.4668 4L71.289 31.2" stroke="#070707" stroke-width="8" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
         </header>
 
 
@@ -34,19 +60,15 @@
             <div class="frame active" id="welcome">
                 <div class="content">
                     <h1 class="text" id="welcome-text-1">You’re Welcome.</h1>
-                    <h1 class="text hidden" id="welcome-text-2">
-                        I’m Mamedov Artur
-                    </h1>
+                    <h1 class="text hidden" id="welcome-text-2">I’m Mamedov Artur</h1>
                 </div>
             </div>
-
 
             <div class="frame" id="about-me">
                 <div class="content">
                     <div id="typing-text"></div>
                 </div>
             </div>
-
 
             <div class="frame" id="stack">
                 <div class="content" id="stack_container">
@@ -154,8 +176,8 @@
                                     </div>
                                     <div class="project-info">
                                         <div class="project-main-info">
-                                            <h2>Dexy</h2>
-                                            <p class="about">
+                                            <h2 class="project-text">Dexy</h2>
+                                            <p class="about project-text">
                                                 First Individual Project Created
                                                 in Q3 2021. This was my first
                                                 full-fledged project — a Discord
@@ -171,10 +193,10 @@
                                             </p>
                                             <div class="stacks-for-project">
                                                 <div class="stack-for-project">
-                                                    <p>#Python</p>
+                                                    <p class="project-text">#Python</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#DiscordAPI</p>
+                                                    <p class="project-text">#DiscordAPI</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,8 +216,8 @@
                                     </div>
                                     <div class="project-info">
                                         <div class="project-main-info">
-                                            <h2>Christmas Adventure 2023</h2>
-                                            <p class="about">
+                                            <h2 class="project-text">Christmas Adventure 2023</h2>
+                                            <p class="about project-text">
                                                 The game was created on December
                                                 31, 2023. My role: team leader,
                                                 programmer, designer, and sound
@@ -207,14 +229,10 @@
                                                 game to the top.
                                             </p>
                                             <div class="stacks-for-project">
+                                                <div class="stack-for-project"><p class="project-text">#Python</p></div>
+                                                <div class="stack-for-project"><p class="project-text">#PyGame</p></div>
                                                 <div class="stack-for-project">
-                                                    <p>#Python</p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p>#PyGame</p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p>#Photoshop</p>
+                                                    <p class="project-text">#Photoshop</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,8 +265,8 @@
                                     </div>
                                     <div class="project-info">
                                         <div class="project-main-info">
-                                            <h2>FlareRestaurant</h2>
-                                            <p class="about">
+                                            <h2 class="project-text">FlareRestaurant</h2>
+                                            <p class="about project-text">
                                                 Second Team Project Completed in
                                                 July 2023. My role: team leader,
                                                 programmer, and designer. We
@@ -260,28 +278,28 @@
                                             </p>
                                             <div class="stacks-for-project">
                                                 <div class="stack-for-project">
-                                                    <p>#Python</p>
+                                                    <p class="project-text">#Python</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Django</p>
+                                                    <p class="project-text">#Django</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#SQL</p>
+                                                    <p class="project-text">#SQL</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Figma</p>
+                                                    <p class="project-text">#Figma</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#HTML</p>
+                                                    <p class="project-text">#HTML</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#CSS</p>
+                                                    <p class="project-text">#CSS</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#JavaScript</p>
+                                                    <p class="project-text">#JavaScript</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#JQuery</p>
+                                                    <p class="project-text">#JQuery</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,8 +332,8 @@
                                     </div>
                                     <div class="project-info">
                                         <div class="project-main-info">
-                                            <h2>SeCrew</h2>
-                                            <p class="about">
+                                            <h2 class="project-text">SeCrew</h2>
+                                            <p class="about project-text">
                                                 Landing page mockup for a
                                                 fictional security services
                                                 company. The project aims to
@@ -330,22 +348,22 @@
                                             </p>
                                             <div class="stacks-for-project">
                                                 <div class="stack-for-project">
-                                                    <p>#Figma</p>
+                                                    <p class="project-text">#Figma</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Adaptive_Design</p>
+                                                    <p class="project-text">#Adaptive_Design</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Color_Psychology</p>
+                                                    <p class="project-text">#Color_Psychology</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Typography</p>
+                                                    <p class="project-text">#Typography</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Spacing</p>
+                                                    <p class="project-text">#Spacing</p>
                                                 </div>
                                                 <div class="stack-for-project">
-                                                    <p>#Hierarchy</p>
+                                                    <p class="project-text">#Hierarchy</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -378,7 +396,7 @@
             </div>
 
 
-            <div class="frame" id="contacts">
+            <!-- <div class="frame" id="contacts">
                 <div class="content">
                     <div class="contacts">
                         <div class="contact">
@@ -416,7 +434,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
 
@@ -430,9 +448,9 @@
             <button class="btn" id="projects-btn" data-target="projects">
                 <img src="img/Folder.svg" alt="Projects" />Projects
             </button>
-            <button class="btn" id="contacts-btn" data-target="contacts">
+            <!-- <button class="btn" id="contacts-btn" data-target="contacts">
                 <img src="img/Phone.svg" alt="Contacts" />Contacts
-            </button>
+            </button> -->
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
