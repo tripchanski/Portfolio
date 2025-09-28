@@ -1,8 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
+    box-sizing: border-box;}
 
 :root {
     --color-background: #F7F7F7;
@@ -37,32 +36,24 @@
     --card-gap: 1rem;
 }
 
-button,
-a {
+button, a {
     outline: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-}
+    text-decoration: none;}
 
-body,
-html {
+body, html {
     background: var(--color-background);
     color: var(--color-text);
-
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     font-family: "Cabin", sans-serif;
-
-    overflow: hidden;
-}
+    overflow: hidden;}
 
 body.dark{
     background: var(--color-background-dark);
     color: var(--color-text-dark);
-    transition: var(--transition-default);
-}
+    transition: var(--transition-default);}
 
 #typing-text {
     font-weight: 300;
@@ -195,7 +186,7 @@ header span {font-size: 1rem;}
     width: 80vw;
 }
 
-#stack .card {
+#stack #stack_container .category div .card {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -206,6 +197,7 @@ header span {font-size: 1rem;}
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px 0;
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
@@ -214,9 +206,32 @@ header span {font-size: 1rem;}
     will-change: transform;
 }
 
-#stack {
-    overflow-y: none;
+
+#stack #stack_container .category div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
 }
+
+#stack #stack_container .category h3{
+    font-size: 2.625rem;
+    line-height: 50.4px;
+    letter-spacing: -0.5%;
+    padding-bottom: 42px;
+}
+
+
+#stack #stack_container .category {
+    padding-top: 84px;
+}
+
+#stack {
+    overflow-y: auto;
+}
+
+
 
 #stack .stack_name {
     font-weight: 400;
@@ -234,18 +249,26 @@ header span {font-size: 1rem;}
 }
 
 #stack .stack_content {
-    gap: 0.5em;
+    gap: 0.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #stack #stack_container {
     height: 100%;
     display: flex;
-    flex-wrap: wrap;
-    direction: ltr;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
+    margin: auto;
     gap: 1rem;
+    padding-bottom: 84px;
+}
+
+#stack_container .category div {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .swiper {
@@ -505,6 +528,11 @@ footer .btn.dark svg path {
     transition: var(--transition-default);
 }
 
+footer .btn.dark::after{
+    background-color: var(--color-text-dark);
+    transition: var(--transition-default);
+}
+
 @media (hover: hover) {
     footer .btn:hover::after {
         opacity: 1;
@@ -685,20 +713,4 @@ footer .btn.dark svg path {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.card {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease-out;
-}
-
-.shine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 3;
 }

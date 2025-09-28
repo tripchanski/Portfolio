@@ -22,6 +22,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTypingAboutMe = true;
   let typingTimeout = null;
 
+  //theme ____________________________________________
+
+  let theme = localStorage.getItem('theme');
+
+  if (!theme) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {theme = 'dark';} else {theme = 'default'; }
+  }
+
+  if (theme === 'dark') {
+        body.forEach((body) => body.classList.toggle("dark"));
+        frames.forEach((frame) => frame.classList.toggle("dark"));
+        buttons.forEach((btn) => btn.classList.toggle("dark"));
+        arrows.forEach((arrow) => arrow.classList.toggle("dark"));
+        projectCards.forEach((card) => card.classList.toggle("dark"));
+        projectTexts.forEach((text) => text.classList.toggle("dark"));
+        logoPaths.forEach((path) => path.classList.toggle("dark"));
+        themeButton.classList.toggle("dark");
+        themeButtonDark.classList.toggle("dark");
+  }
+
   // circle ____________________________________________
 
   const circle = document.createElement("div");
@@ -99,6 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetBtnFrame = document.getElementById(button.getAttribute("id"));
 
       if (targetId === "theme") {
+        if (document.body.classList.contains('dark')) {
+          localStorage.setItem('theme', 'default');
+        } else {
+          localStorage.setItem('theme', 'dark');
+        }
         body.forEach((body) => body.classList.toggle("dark"));
         frames.forEach((frame) => frame.classList.toggle("dark"));
         buttons.forEach((btn) => btn.classList.toggle("dark"));

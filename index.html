@@ -4,20 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Mamedov Artur</title>
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
-        </style>
-        <!-- <link rel="icon" media="(prefers-color-scheme: light)" href="img/Logo_Dark.png" type="image/png">
-        <link rel="icon" media="(prefers-color-scheme: dark)" href="img/Logo_Light.png" type="image/png"> -->
+        <style>@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');</style>
+        <link rel="icon" media="(prefers-color-scheme: light)" href="img/Logo_Dark.png" type="image/png">
+        <link rel="icon" media="(prefers-color-scheme: dark)" href="img/Logo_Light.png" type="image/png">
 
-        <link rel="icon" href="img/Logo_Dark.svg" type="image/svg">
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="styles.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" defer/>
+        <script src="script.js" defer></script>
 
-        <!-- Swiper -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-        />
     </head>
     <body class="body">
 
@@ -44,22 +38,22 @@
                             </defs>
                         </svg>
                         <svg width="43" height="112" viewBox="0 0 43 112" fill="none" xmlns="http://www.w3.org/2000/svg" class="theme-icon-dark">
-                            <path d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z" fill="#707070" stroke="black"/>
-                            <path d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z" stroke="black"/>
-                            <path d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z" stroke="black"/>
-                            <path d="M21.5 35.0667L21.0041 -89.9563L21 -91" stroke="black" stroke-width="2"/>
-                            <path d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z" fill="black" stroke="black"/>
-                            <path d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z" fill="url(#paint0_linear_485_77)"/>
-                            <mask id="path-7-inside-1_485_77" fill="white">
-                            <path d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"/>
-                            </mask>
-                            <path d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z" fill="white" fill-opacity="0.25" stroke="black" stroke-width="2" mask="url(#path-7-inside-1_485_77)"/>
-                            <defs>
-                            <linearGradient id="paint0_linear_485_77" x1="21.5" y1="63.7334" x2="21.5" y2="111.033" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#707070"/>
-                            <stop offset="1" stop-color="#171717"/>
-                            </linearGradient>
-                            </defs>
+                        <path d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z" fill="#707070" stroke="black"/>
+                        <path d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z" stroke="black"/>
+                        <path d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z" stroke="black"/>
+                        <path d="M21.5 35.0667L21.0041 -89.9563L21 -91" stroke="black" stroke-width="2"/>
+                        <path d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z" fill="black" stroke="black"/>
+                        <path d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z" fill="url(#paint0_linear_485_77)"/>
+                        <mask id="path-7-inside-1_485_77" fill="white">
+                        <path d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"/>
+                        </mask>
+                        <path d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z" fill="white" fill-opacity="0.25" stroke="black" stroke-width="2" mask="url(#path-7-inside-1_485_77)"/>
+                        <defs>
+                        <linearGradient id="paint0_linear_485_77" x1="21.5" y1="63.7334" x2="21.5" y2="111.033" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#707070"/>
+                        <stop offset="1" stop-color="#171717" stop-opacity="0"/>
+                        </linearGradient>
+                        </defs>
                         </svg>
                     </button>
                     <button class="btn" id="welcome-btn" data-target="welcome">
@@ -71,7 +65,6 @@
                     </button>
                 </div>
         </header>
-
 
         <div class="frames-container">
 
@@ -91,88 +84,186 @@
             <div class="frame" id="stack">
                 <div class="content" id="stack_container">
 
-                    <div class="stack_block card">
-                        <img src="img/stack/PythonLogo.svg" alt="PythonLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">Python</span>
-                            <span class="stack_yo_exp">4+ years</span>
+                    <div class="category"><h3>Languages</h3><div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/python.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Python</span>
+                                <span class="stack_yo_exp">5+ years</span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/html.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">HTML</span>
+                                <span class="stack_yo_exp">4+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/css.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">CSS</span>
+                                <span class="stack_yo_exp">4+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/js.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">JavaScript</span>
+                                <span class="stack_yo_exp">2.5+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/php.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">PHP</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
+                        </div>                        
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/md.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">Markdown</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/languages/ts.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">TypeScript</span>
+                                <span class="stack_yo_exp">0.5+ years</span>
+                            </div>
+                        </div>
+                    </div></div>
 
-                    <div class="stack_block card">
-                        <img src="img/stack/GithubLogo.svg" alt="GitHubLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">GitHub</span>
-                            <span class="stack_yo_exp">3+ years</span>
+                    <div class="category"><h3>Frameworks & Libraries</h3><div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/discord.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Discord.py</span>
+                                <span class="stack_yo_exp">4.5+ years</span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/pygame.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">PyGame</span>
+                                <span class="stack_yo_exp">3.5+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/dj.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Django</span>
+                                <span class="stack_yo_exp">3+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/jQuery.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">JQuery</span>
+                                <span class="stack_yo_exp">2.5+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/aiogram.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">Aiogram</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
+                        </div>                        
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/fastapi.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">FastAPI</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/react.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">React</span>
+                                <span class="stack_yo_exp">0.5+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/libraries/react_native.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">React Native</span>
+                                <span class="stack_yo_exp">0.5+ years</span>
+                            </div>
+                        </div>
+                         <div class="stack_block card">
+                            <img src="img/stack/libraries/expo.svg" loading="lazy" />
+                            <div class="stack_content">
+                                <span class="stack_name">Expo</span>
+                                <span class="stack_yo_exp">0.5+ years</span>
+                            </div>
+                        </div>
+                    </div></div>
 
-                    <div class="stack_block card">
-                        <img src="img/stack/VSCodeLogo.svg" alt="VSCodeLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">VSCode</span>
-                            <span class="stack_yo_exp">3+ years</span>
+                    <div class="category"><h3>SQL & NoSQL</h3><div>
+                        <div class="stack_block card">
+                            <img src="img/stack/database/sqlite.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">SQLite</span>
+                                <span class="stack_yo_exp">3+ years</span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/database/mongodb.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">MongoDB</span>
+                                <span class="stack_yo_exp">3+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/database/mysql.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">MySQL</span>
+                                <span class="stack_yo_exp">2+ years</span>
+                            </div>
+                        </div>
+                        <div class="stack_block card">
+                            <img src="img/stack/database/postgresql.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">PostgreSQL</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
+                        </div>
+                    </div></div>
 
-                    <div class="stack_block card">
-                        <img
-                            src="img/stack/PhotoshopLogo.svg"
-                            alt="PhotoshopLogo"
-                        />
-                        <div class="stack_content">
-                            <span class="stack_name">Photoshop</span>
-                            <span class="stack_yo_exp">3+ years</span>
+                    <div class="category"><h3>Tools & DevOps</h3><div>
+                        <div class="stack_block card">
+                            <img src="img/stack/tools/git.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Git</span>
+                                <span class="stack_yo_exp">3+ years</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/SqlLogo.svg" alt="SqlLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">SQL</span>
-                            <span class="stack_yo_exp">2+ years</span>
+                        <div class="stack_block card">
+                            <img src="img/stack/tools/docker.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Docker</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/FigmaLogo.svg" alt="FigmaLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">Figma</span>
-                            <span class="stack_yo_exp">2+ years</span>
+                        <div class="stack_block card">
+                            <img src="img/stack/tools/gunicorn.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Gunicorn</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/CssLogo.svg" alt="CssLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">CSS</span>
-                            <span class="stack_yo_exp">3+ years</span>
+                        <div class="stack_block card">
+                            <img src="img/stack/tools/nginx.svg" loading="lazy"/>
+                            <div class="stack_content">
+                                <span class="stack_name">Nginx</span>
+                                <span class="stack_yo_exp">1+ years</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/HtmlLogo.svg" alt="HtmlLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">HTML</span>
-                            <span class="stack_yo_exp">3+ years</span>
-                        </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/JsLogo.svg" alt="JavaScriptLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">JavaScript</span>
-                            <span class="stack_yo_exp">2+ year</span>
-                        </div>
-                    </div>
-
-                    <div class="stack_block card">
-                        <img src="img/stack/PhpLogo.svg" alt="PhpLogo" />
-                        <div class="stack_content">
-                            <span class="stack_name">PHP</span>
-                            <span class="stack_yo_exp">1+ year</span>
-                        </div>
-                    </div>
+                    </div></div>
+                   
                 </div>
             </div>
 
@@ -478,6 +569,5 @@
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-        <script src="script.js"></script>
     </body>
 </html>
