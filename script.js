@@ -246,10 +246,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      if (targetId === "contacts") {
-        isTypingAboutMe = false;
-      }
-
       if (targetId === "more") {
         isTypingAboutMe = false;
 
