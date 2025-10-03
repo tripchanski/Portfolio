@@ -203,19 +203,7 @@ footer .btn.dark svg path { stroke: var(--text-dark); transition: var(--transiti
     .swiper-button-prev, .swiper-button-next { display: none !important  }
 }
 
-@media (max-width: 800px) {
-    .contacts { flex-direction: column; gap: 1em }
-    .contact a { gap: 1em; align-items: center }
-    .contacts .contact img { width: 5em; height: 5% }
-
-    footer .btn.active::after, footer .btn::after { top: -0.5rem }
-
-    #stack_container { scroll-behavior: smooth; }
-    #stack_container > * { flex: 0 0 auto }
-
-    footer { gap: 1rem }
-    footer .btn, footer .btn.active { font-size: 0; padding: 1rem;}
-}
+@media (max-width: 800px) { footer .btn, footer .btn.active { font-size: 0 } }
 
 .hidden {display: none}
 ::selection { background-color: #333; color: var(--secondary-light); }
