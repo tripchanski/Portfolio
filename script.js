@@ -365,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bgAnimation = new BackgroundAnimation();
 
   function toggleDarkTheme() {
+    const isDark = !body.classList.contains("dark"); // Will be the NEW state after toggle
     body.classList.toggle("dark");
 
     const allButtons = document.querySelectorAll(".btn");
@@ -373,8 +374,15 @@ document.addEventListener("DOMContentLoaded", () => {
     arrows.forEach((arrow) => arrow.classList.toggle("dark"));
     themeSecondary.forEach((el) => el.classList.toggle("dark"));
 
+    // FORCE update project cards
     const projectCards = document.querySelectorAll(".project-card");
-    projectCards.forEach((card) => card.classList.toggle("dark"));
+    projectCards.forEach((card) => {
+      if (isDark && !card.classList.contains("dark")) {
+        card.classList.add("dark");
+      } else if (!isDark && card.classList.contains("dark")) {
+        card.classList.remove("dark");
+      }
+    });
 
     const stackCategories = document.querySelectorAll("#stack .category");
     const stackBlocks = document.querySelectorAll("#stack .stack_block");
@@ -386,8 +394,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (githubLink) githubLink.classList.toggle("dark");
     bgAnimation.updateTheme(body.classList.contains("dark"));
 
+    // FORCE update footer buttons
     const footerButtons = document.querySelectorAll("footer .btn");
-    const isDark = body.classList.contains("dark");
     footerButtons.forEach((btn) => {
       if (isDark && !btn.classList.contains("dark")) {
         btn.classList.add("dark");
