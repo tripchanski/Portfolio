@@ -613,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
         case "about-me":
           typeWriter(
             "typing-text",
-            "My name is Artur.\nI am a sociable and friendly person.\nI like programming and creating useful projects.",
+            "My name is Artur.\nI`m the best one.",
             50,
           );
           break;
