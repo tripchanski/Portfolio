@@ -43,6 +43,360 @@ a {
     pointer-events: none;
     will-change: transform;
 }
+
+.catch-shape {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 5;
+    pointer-events: auto;
+    transition: transform 0.2s ease;
+    opacity: 0.7;
+}
+
+.catch-shape:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.catch-shape.star {
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    background: rgba(200, 200, 200, 0.8);
+    border: 1px solid rgba(150, 150, 150, 0.4);
+    box-shadow: 0 0 10px rgba(200, 200, 200, 0.3);
+}
+
+body.dark .catch-shape.star {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.catch-shape.circle {
+    border-radius: 50%;
+    background: rgba(180, 180, 180, 0.8);
+    border: 1px solid rgba(130, 130, 130, 0.4);
+    box-shadow: 0 0 10px rgba(180, 180, 180, 0.3);
+}
+
+body.dark .catch-shape.circle {
+    background: rgba(240, 240, 240, 0.7);
+    border: 1px solid rgba(220, 220, 220, 0.3);
+    box-shadow: 0 0 15px rgba(240, 240, 240, 0.4);
+}
+
+.catch-shape.triangle {
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 32px solid rgba(190, 190, 190, 0.8);
+    background: none;
+    box-shadow: 0 0 10px rgba(190, 190, 190, 0.3);
+    filter: drop-shadow(0 0 5px rgba(190, 190, 190, 0.2));
+}
+
+body.dark .catch-shape.triangle {
+    border-bottom-color: rgba(250, 250, 250, 0.7);
+    filter: drop-shadow(0 0 10px rgba(250, 250, 250, 0.4));
+}
+
+#game-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: all 0.3s ease;
+    user-select: none;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+#game-counter.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+body.dark #game-counter {
+    color: var(--text-dark);
+    background: rgba(23, 23, 23, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+#game-counter.pulse {
+    animation: counterPulse 0.3s ease;
+}
+
+@keyframes counterPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* Sudoku Easter Egg */
+.sudoku-trigger {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.sudoku-trigger:hover {
+    opacity: 0.7;
+}
+
+#sudoku-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#sudoku-modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.sudoku-container {
+    background: var(--secondary-light);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    position: relative;
+}
+
+body.dark .sudoku-container {
+    background: var(--secondary-dark);
+}
+
+.sudoku-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sudoku-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.sudoku-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+body.dark .sudoku-close {
+    color: var(--text-dark);
+}
+
+.sudoku-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
+}
+
+body.dark .sudoku-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0;
+    border: 3px solid var(--text-light);
+    width: fit-content;
+    margin: 0 auto;
+}
+
+body.dark .sudoku-grid {
+    border-color: var(--text-dark);
+}
+
+.sudoku-cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+body.dark .sudoku-cell {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sudoku-cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-light);
+    outline: none;
+}
+
+body.dark .sudoku-cell input {
+    color: var(--text-dark);
+}
+
+.sudoku-cell.fixed input {
+    color: #666;
+    font-weight: 700;
+}
+
+body.dark .sudoku-cell.fixed input {
+    color: #999;
+}
+
+.sudoku-cell input:focus {
+    background: rgba(100, 150, 255, 0.1);
+}
+
+.sudoku-cell.error {
+    background: rgba(255, 100, 100, 0.15);
+    border-color: rgba(255, 100, 100, 0.4);
+}
+
+.sudoku-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.sudoku-message {
+    font-size: var(--font-large);
+    line-height: 1.6;
+    text-align: center;
+    min-height: 2rem;
+    color: var(--text-light);
+    flex: 1;
+}
+
+body.dark .sudoku-message {
+    color: var(--text-dark);
+}
+
+.sudoku-timer {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--text-light);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    min-width: 100px;
+    text-align: center;
+}
+
+body.dark .sudoku-timer {
+    color: var(--text-dark);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sudoku-cell:nth-child(3n) {
+    border-right: 2px solid var(--text-light);
+}
+
+body.dark .sudoku-cell:nth-child(3n) {
+    border-right-color: var(--text-dark);
+}
+
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid var(--text-light);
+}
+
+body.dark .sudoku-cell:nth-child(n+19):nth-child(-n+27),
+body.dark .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom-color: var(--text-dark);
+}
+
+.sudoku-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.sudoku-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--text-light);
+    color: var(--secondary-light);
+}
+
+body.dark .sudoku-btn {
+    background: var(--text-dark);
+    color: var(--secondary-dark);
+}
+
+.sudoku-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .sudoku-cell {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .sudoku-cell input {
+        font-size: 1rem;
+    }
+
+    .sudoku-container {
+        padding: 1rem;
+    }
+}
 body {
     background: var(--main-light);
     color: var(--text-light);
@@ -62,6 +416,23 @@ body.dark {
 
 #typing-text {
     font-size: var(--font-large);
+    line-height: 1.6;
+}
+#typing-text .typing-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background: var(--text-light);
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+}
+body.dark #typing-text .typing-cursor {
+    background: var(--text-dark);
+}
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 h3 {
     font-size: 2.625rem;
@@ -88,6 +459,15 @@ header {
 }
 header .logo {
     height: 2rem;
+    transform: rotate(0deg);
+    will-change: transform;
+}
+header .btn#welcome-btn:hover .logo {
+    animation: logoSpin 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+@keyframes logoSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 body.dark header #welcome-btn path {
     stroke: var(--text-dark);
@@ -105,13 +485,17 @@ header span {
     color: var(--text-light);
     transition:
         color 0.3s ease,
-        opacity 0.2s ease;
+        transform 0.3s ease;
 }
 .github-link.dark {
     color: var(--text-dark);
 }
 .github-link:hover {
-    opacity: 0.7;
+    animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 .header-btns {
     display: flex;
@@ -126,7 +510,9 @@ header span {
     height: 12em;
     top: 0px;
     z-index: 10;
-    transition: var(--default);
+    transform-origin: 50% 0%;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
 }
 .theme-icon {
     display: inline;
@@ -306,6 +692,11 @@ footer .btn.theme-secondary.dark {
     cursor: pointer;
 }
 
+#stack .stack_block:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
 #stack .stack_block.dark {
     background: rgba(23, 23, 23, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -432,10 +823,22 @@ footer .btn.theme-secondary.dark {
     backdrop-filter: none;
     transition:
         background 0.3s ease,
-        color 0.3s ease;
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    will-change: transform;
+}
+.project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 .project-card.dark {
     background: #171717;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.project-card.dark:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 .project-card .project-text {
     transition: color 0.3s ease;
@@ -467,6 +870,15 @@ footer .btn.theme-secondary.dark {
     padding: 0.5rem 0.75rem;
     border-radius: 2rem;
     background-color: rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.project-card .stack-for-project:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+body.dark .project-card .stack-for-project:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .card-buttons button {
@@ -485,10 +897,15 @@ p.about {
 
 .card-buttons .btn-link {
     padding: 0.5rem;
-    transition: opacity 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 0.5rem;
 }
 .card-buttons .btn-link:hover {
-    opacity: 0.7;
+    transform: scale(1.15) rotate(5deg);
+    background: rgba(0, 0, 0, 0.05);
+}
+body.dark .card-buttons .btn-link:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 .card-buttons .btn-link img {
     width: 3em;
@@ -501,6 +918,11 @@ p.about {
 .swiper-button-prev,
 .swiper-button-next {
     --swiper-navigation-color: var(--text-light) !important;
+    transition: all 0.3s ease;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    opacity: 0.7;
 }
 .swiper-button-prev.dark,
 .swiper-button-next.dark {
@@ -531,6 +953,25 @@ footer .btn {
         color 0.3s ease,
         background 0.3s ease;
     color: var(--text-light);
+    overflow: hidden;
+    will-change: transform;
+}
+footer .btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+body.dark footer .btn .ripple {
+    background: rgba(255, 255, 255, 0.2);
+}
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
 footer .btn.dark {
     color: var(--text-dark);
@@ -615,10 +1056,106 @@ footer .btn.dark svg path {
     }
 }
 
+@media (max-width: 1024px) {
+    .swiper {
+        width: 90vw;
+    }
+    .project-card {
+        width: 90%;
+        height: 75%;
+    }
+}
+
 @media (max-width: 800px) {
     footer .btn,
     footer .btn.active {
         font-size: 0;
+    }
+
+    header {
+        margin: 0 4%;
+    }
+
+    .frames-container {
+        height: 75vh;
+    }
+
+    .frame {
+        width: 92%;
+        margin: 0 4%;
+    }
+
+    footer {
+        margin: 0 4%;
+        gap: 2%;
+    }
+}
+
+@media (max-width: 600px) {
+    header span {
+        font-size: 0.75rem;
+    }
+
+    .header-btns {
+        width: 45%;
+    }
+
+    .theme-icon,
+    .theme-icon-dark {
+        height: 8em;
+    }
+
+    #welcome .text {
+        font-size: clamp(2rem, 8vw, 4.25rem);
+    }
+
+    .swiper {
+        width: 95vw;
+        height: 70vh;
+    }
+
+    .project-card {
+        width: 95%;
+        height: 80%;
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+    }
+
+    .project-card .project-img {
+        width: 100%;
+        max-height: 40%;
+    }
+
+    .project-card .project-img img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .project-card h2 {
+        font-size: clamp(1.25rem, 5vw, 1.625rem);
+        margin: 0.5rem 0;
+    }
+
+    .project-card p {
+        font-size: clamp(0.875rem, 3.5vw, 1rem);
+    }
+
+    .card-buttons {
+        position: static;
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    footer {
+        gap: 1%;
+        padding: 5px 0;
+    }
+
+    footer .btn {
+        padding: 0.75rem 1rem;
     }
 }
 

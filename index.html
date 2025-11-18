@@ -30,10 +30,11 @@
     </head>
     <body class="body theme-text">
         <canvas id="background-canvas"></canvas>
+        <div id="game-counter">⭐ 0</div>
 
         <header>
             <span
-                >© Mamedov Artur 2025 |
+                >© Mamedov Artur <span class="sudoku-trigger" id="year-trigger">2025</span> |
                 <a
                     href="https://github.com/tripchanski"
                     target="_blank"
@@ -947,6 +948,25 @@
                 >Projects
             </button>
         </footer>
+
+        <!-- Sudoku Easter Egg Modal -->
+        <div id="sudoku-modal">
+            <div class="sudoku-container">
+                <div class="sudoku-header">
+                    <h2>🎮 Secret Sudoku!</h2>
+                    <button class="sudoku-close" id="sudoku-close">×</button>
+                </div>
+                <div class="sudoku-info">
+                    <div class="sudoku-message" id="sudoku-message"></div>
+                    <div class="sudoku-timer" id="sudoku-timer">00:00</div>
+                </div>
+                <div class="sudoku-grid" id="sudoku-grid"></div>
+                <div class="sudoku-buttons">
+                    <button class="sudoku-btn" id="sudoku-check">Check</button>
+                    <button class="sudoku-btn" id="sudoku-new">New Game</button>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     </body>
