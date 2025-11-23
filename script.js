@@ -2,8 +2,11 @@ class BackgroundAnimation {
   constructor() {
     this.canvas = document.getElementById("background-canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.snowCanvas = document.getElementById("snow-canvas");
+    this.snowCtx = this.snowCanvas.getContext("2d");
     this.orbits = [];
     this.particles = [];
+    this.snowflakes = [];
     this.isDark = false;
     this.mouse = { x: 0, y: 0 };
 
@@ -27,6 +30,8 @@ class BackgroundAnimation {
   resize() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
+    this.snowCanvas.width = window.innerWidth;
+    this.snowCanvas.height = window.innerHeight;
     this.centerX = this.canvas.width / 2;
     this.centerY = this.canvas.height / 2;
   }
@@ -49,7 +54,7 @@ class BackgroundAnimation {
       });
     }
 
-    const particleCount = isMobile ? 25 : 50;
+    const particleCount = isMobile ? 15 : 30;
     for (let i = 0; i < particleCount; i++) {
       this.particles.push({
         x: Math.random() * this.canvas.width,
@@ -62,7 +67,7 @@ class BackgroundAnimation {
     }
 
     this.stars = [];
-    const starCount = isMobile ? 80 : 150;
+    const starCount = isMobile ? 20 : 35;
     for (let i = 0; i < starCount; i++) {
       let x, y;
       const edge = Math.random();
@@ -90,6 +95,21 @@ class BackgroundAnimation {
     this.shootingStars = [];
     this.createShootingStar();
     this.createMeteorShower();
+
+    // Create snowflakes for New Year atmosphere
+    const snowflakeCount = isMobile ? 40 : 80;
+    for (let i = 0; i < snowflakeCount; i++) {
+      this.snowflakes.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        radius: Math.random() * 2.5 + 1,
+        speed: Math.random() * 1 + 0.5,
+        wind: Math.random() * 0.5 - 0.25,
+        opacity: Math.random() * 0.6 + 0.4,
+        swing: Math.random() * Math.PI * 2,
+        swingSpeed: Math.random() * 0.02 + 0.01
+      });
+    }
 
     this.animateParticlesWithAnime();
   }
@@ -235,7 +255,7 @@ class BackgroundAnimation {
   }
 
   createShootingStar() {
-    const delay = 3000 + Math.random() * 7000;
+    const delay = 5000 + Math.random() * 10000;
 
     setTimeout(() => {
       const startX = Math.random() * this.canvas.width;
@@ -260,7 +280,7 @@ class BackgroundAnimation {
     const delay = 60000 + Math.random() * 60000; // 1-2 minutes
 
     setTimeout(() => {
-      const count = 15 + Math.floor(Math.random() * 10); // 15-25 stars
+      const count = 8 + Math.floor(Math.random() * 7); // 8-15 stars
 
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -345,6 +365,51 @@ class BackgroundAnimation {
     this.ctx.fill();
   }
 
+  drawSnowflake(snowflake) {
+    // Update position
+    snowflake.y += snowflake.speed;
+    snowflake.swing += snowflake.swingSpeed;
+    snowflake.x += Math.sin(snowflake.swing) * 0.5 + snowflake.wind;
+
+    // Reset if off screen
+    if (snowflake.y > this.canvas.height) {
+      snowflake.y = -10;
+      snowflake.x = Math.random() * this.canvas.width;
+    }
+    if (snowflake.x > this.canvas.width) {
+      snowflake.x = 0;
+    } else if (snowflake.x < 0) {
+      snowflake.x = this.canvas.width;
+    }
+
+    // Draw snowflake with gradient for depth on snow canvas
+    // Black on light theme, white on dark theme
+    const snowColor = this.isDark ? '255, 255, 255' : '0, 0, 0';
+
+    const gradient = this.snowCtx.createRadialGradient(
+      snowflake.x,
+      snowflake.y,
+      0,
+      snowflake.x,
+      snowflake.y,
+      snowflake.radius * 2
+    );
+
+    gradient.addColorStop(0, `rgba(${snowColor}, ${snowflake.opacity})`);
+    gradient.addColorStop(1, `rgba(${snowColor}, 0)`);
+
+    this.snowCtx.beginPath();
+    this.snowCtx.arc(snowflake.x, snowflake.y, snowflake.radius * 2, 0, Math.PI * 2);
+    this.snowCtx.fillStyle = gradient;
+    this.snowCtx.fill();
+
+    // Draw solid center
+    this.snowCtx.beginPath();
+    this.snowCtx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+    this.snowCtx.fillStyle = `rgba(${snowColor}, ${snowflake.opacity * 0.9})`;
+    this.snowCtx.fill();
+  }
+
   drawConnections() {
     // Skip connections on mobile for performance
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -374,6 +439,7 @@ class BackgroundAnimation {
 
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.snowCtx.clearRect(0, 0, this.snowCanvas.width, this.snowCanvas.height);
 
     if (this.stars) {
       this.stars.forEach((star) => this.drawStar(star));
@@ -415,6 +481,11 @@ class BackgroundAnimation {
 
       this.drawParticle(particle);
     });
+
+    // Draw snowflakes on separate canvas (foreground with high z-index)
+    if (this.snowflakes) {
+      this.snowflakes.forEach((snowflake) => this.drawSnowflake(snowflake));
+    }
 
     requestAnimationFrame(() => this.animate());
   }
@@ -913,6 +984,49 @@ document.addEventListener("DOMContentLoaded", () => {
   sudokuCheck.addEventListener("click", checkSudoku);
   sudokuNew.addEventListener("click", newSudoku);
 
+  // Year typing effect like "About me" (character by character, only 1 digit changes)
+  function typeEraseYear() {
+    const yearTrigger = document.getElementById("year-trigger");
+    let delay = 0;
+
+    // Step 1: Erase from "2025" to "202" (remove "5")
+    setTimeout(() => {
+      yearTrigger.textContent = "202";
+    }, delay += 100);
+
+    // Step 2: Type "6" -> "2026"
+    setTimeout(() => {
+      yearTrigger.textContent = "2026";
+    }, delay += 150);
+
+    // Step 3: Wait 5 seconds, then reverse
+    setTimeout(() => {
+      let reverseDelay = 0;
+
+      // Erase "6" -> "202"
+      setTimeout(() => {
+        yearTrigger.textContent = "202";
+      }, reverseDelay += 100);
+
+      // Type "5" -> "2025"
+      setTimeout(() => {
+        yearTrigger.textContent = "2025";
+      }, reverseDelay += 150);
+
+    }, delay + 5000);
+  }
+
+  // Randomly trigger year change every 8-15 seconds
+  function scheduleYearChange() {
+    const delay = 8000 + Math.random() * 7000;
+    setTimeout(() => {
+      typeEraseYear();
+      scheduleYearChange();
+    }, delay);
+  }
+
+  scheduleYearChange();
+
   // Lamp physics
   const lampButton = document.getElementById("light-dark-btn");
   const lamp = lampButton.querySelector(".theme-icon, .theme-icon-dark");
@@ -953,83 +1067,96 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  let animationFrameId;
-  document.addEventListener("mousemove", (e) => {
-    cancelAnimationFrame(animationFrameId);
-    animationFrameId = requestAnimationFrame(() => {
-      updateLampPhysics(e.clientX, e.clientY);
+  // Disable animations on mobile
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    let animationFrameId;
+    document.addEventListener("mousemove", (e) => {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => {
+        updateLampPhysics(e.clientX, e.clientY);
+      });
     });
-  });
-
-  // Magnetic buttons with smooth following
-  const footerButtons = document.querySelectorAll("footer .btn");
-  const buttonTargets = new Map();
-
-  footerButtons.forEach((btn) => {
-    buttonTargets.set(btn, { x: 0, y: 0, currentX: 0, currentY: 0 });
-
-    btn.addEventListener("mouseenter", () => {
-      btn.style.transition = "background 0.3s ease, color 0.3s ease";
-    });
-
-    btn.addEventListener("mousemove", (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      const distance = Math.sqrt(x * x + y * y);
-      const maxDistance = 80;
-
-      if (distance < maxDistance) {
-        const strength = (1 - distance / maxDistance) * 0.4;
-        const target = buttonTargets.get(btn);
-        target.x = x * strength;
-        target.y = y * strength;
-      }
-    });
-
-    btn.addEventListener("mouseleave", () => {
-      const target = buttonTargets.get(btn);
-      target.x = 0;
-      target.y = 0;
-      btn.style.transition = "background 0.3s ease, color 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
-    });
-
-    // Ripple effect
-    btn.addEventListener("click", (e) => {
-      const ripple = document.createElement("span");
-      ripple.classList.add("ripple");
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-
-      btn.appendChild(ripple);
-
-      setTimeout(() => ripple.remove(), 600);
-    });
-  });
-
-  // Smooth magnetic animation loop
-  function animateMagneticButtons() {
-    buttonTargets.forEach((target, btn) => {
-      const ease = 0.15;
-      target.currentX += (target.x - target.currentX) * ease;
-      target.currentY += (target.y - target.currentY) * ease;
-
-      if (Math.abs(target.currentX) > 0.01 || Math.abs(target.currentY) > 0.01) {
-        btn.style.transform = `translate(${target.currentX}px, ${target.currentY}px)`;
-      } else if (target.x === 0 && target.y === 0) {
-        btn.style.transform = "translate(0, 0)";
-      }
-    });
-
-    requestAnimationFrame(animateMagneticButtons);
   }
-  animateMagneticButtons();
+
+  // Magnetic buttons with smooth following (only on desktop)
+  if (!isMobile) {
+    const footerButtons = document.querySelectorAll("footer .btn");
+    const buttonTargets = new Map();
+
+    footerButtons.forEach((btn) => {
+      buttonTargets.set(btn, { x: 0, y: 0, currentX: 0, currentY: 0 });
+
+      const handleMagneticEffect = (clientX, clientY) => {
+        const rect = btn.getBoundingClientRect();
+        const x = clientX - rect.left - rect.width / 2;
+        const y = clientY - rect.top - rect.height / 2;
+        const distance = Math.sqrt(x * x + y * y);
+        const maxDistance = 80;
+
+        if (distance < maxDistance) {
+          const strength = (1 - distance / maxDistance) * 0.4;
+          const target = buttonTargets.get(btn);
+          target.x = x * strength;
+          target.y = y * strength;
+        }
+      };
+
+      const handleReset = () => {
+        const target = buttonTargets.get(btn);
+        target.x = 0;
+        target.y = 0;
+        btn.style.transition = "background 0.3s ease, color 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
+      };
+
+      btn.addEventListener("mouseenter", () => {
+        btn.style.transition = "background 0.3s ease, color 0.3s ease";
+      });
+
+      btn.addEventListener("mousemove", (e) => {
+        handleMagneticEffect(e.clientX, e.clientY);
+      });
+
+      btn.addEventListener("mouseleave", handleReset);
+
+      // Ripple effect
+      btn.addEventListener("click", (e) => {
+        const ripple = document.createElement("span");
+        ripple.classList.add("ripple");
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        btn.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    // Smooth magnetic animation loop
+    function animateMagneticButtons() {
+      buttonTargets.forEach((target, btn) => {
+        const ease = 0.15;
+        target.currentX += (target.x - target.currentX) * ease;
+        target.currentY += (target.y - target.currentY) * ease;
+
+        if (Math.abs(target.currentX) > 0.01 || Math.abs(target.currentY) > 0.01) {
+          btn.style.transform = `translate(${target.currentX}px, ${target.currentY}px)`;
+        } else if (target.x === 0 && target.y === 0) {
+          btn.style.transform = "translate(0, 0)";
+        }
+      });
+
+      requestAnimationFrame(animateMagneticButtons);
+    }
+    animateMagneticButtons();
+  }
 
   function toggleDarkTheme() {
     const isDark = !body.classList.contains("dark"); // Will be the NEW state after toggle
