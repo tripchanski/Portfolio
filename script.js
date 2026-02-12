@@ -1,26 +1,46 @@
+// Cache mobile detection globally
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+
 class BackgroundAnimation {
   constructor() {
     this.canvas = document.getElementById("background-canvas");
-    this.ctx = this.canvas.getContext("2d");
-    this.snowCanvas = document.getElementById("snow-canvas");
-    this.snowCtx = this.snowCanvas.getContext("2d");
+    this.ctx = this.canvas.getContext("2d", { alpha: true });
     this.orbits = [];
     this.particles = [];
-    this.snowflakes = [];
     this.isDark = false;
     this.mouse = { x: 0, y: 0 };
+    this.isVisible = true;
+    this.animationId = null;
 
     this.resize();
     let resizeTimeout;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => this.resize(), 150);
-    });
+    }, { passive: true });
 
-    // Track mouse for interactive effects
-    window.addEventListener("mousemove", (e) => {
-      this.mouse.x = e.clientX;
-      this.mouse.y = e.clientY;
+    // Track mouse for interactive effects (only on desktop)
+    if (!isMobile) {
+      window.addEventListener("mousemove", (e) => {
+        this.mouse.x = e.clientX;
+        this.mouse.y = e.clientY;
+      }, { passive: true });
+    }
+
+    // Page Visibility API - stop animations when page is hidden
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        this.isVisible = false;
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+          this.animationId = null;
+        }
+      } else {
+        this.isVisible = true;
+        if (!this.animationId) {
+          this.animate();
+        }
+      }
     });
 
     this.init();
@@ -30,21 +50,18 @@ class BackgroundAnimation {
   resize() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.snowCanvas.width = window.innerWidth;
-    this.snowCanvas.height = window.innerHeight;
     this.centerX = this.canvas.width / 2;
     this.centerY = this.canvas.height / 2;
   }
 
   init() {
-    // Detect mobile for performance optimization
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    const orbitCount = isMobile ? 3 : 5;
+    // HEAVILY REDUCED for performance
+    const orbitCount = isMobile ? 2 : 3;
     for (let i = 0; i < orbitCount; i++) {
       const radius = 100 + i * 80;
       const speed = 0.0005 + i * 0.0003;
-      const planetCount = isMobile ? 2 : 2 + i;
+      const planetCount = isMobile ? 1 : 2;
 
       this.orbits.push({
         radius,
@@ -54,7 +71,7 @@ class BackgroundAnimation {
       });
     }
 
-    const particleCount = isMobile ? 15 : 30;
+    const particleCount = isMobile ? 8 : 15;
     for (let i = 0; i < particleCount; i++) {
       this.particles.push({
         x: Math.random() * this.canvas.width,
@@ -67,7 +84,7 @@ class BackgroundAnimation {
     }
 
     this.stars = [];
-    const starCount = isMobile ? 20 : 35;
+    const starCount = isMobile ? 12 : 20;
     for (let i = 0; i < starCount; i++) {
       let x, y;
       const edge = Math.random();
@@ -95,21 +112,6 @@ class BackgroundAnimation {
     this.shootingStars = [];
     this.createShootingStar();
     this.createMeteorShower();
-
-    // Create snowflakes for New Year atmosphere
-    const snowflakeCount = isMobile ? 40 : 80;
-    for (let i = 0; i < snowflakeCount; i++) {
-      this.snowflakes.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        radius: Math.random() * 2.5 + 1,
-        speed: Math.random() * 1 + 0.5,
-        wind: Math.random() * 0.5 - 0.25,
-        opacity: Math.random() * 0.6 + 0.4,
-        swing: Math.random() * Math.PI * 2,
-        swingSpeed: Math.random() * 0.02 + 0.01
-      });
-    }
 
     this.animateParticlesWithAnime();
   }
@@ -365,64 +367,21 @@ class BackgroundAnimation {
     this.ctx.fill();
   }
 
-  drawSnowflake(snowflake) {
-    // Update position
-    snowflake.y += snowflake.speed;
-    snowflake.swing += snowflake.swingSpeed;
-    snowflake.x += Math.sin(snowflake.swing) * 0.5 + snowflake.wind;
-
-    // Reset if off screen
-    if (snowflake.y > this.canvas.height) {
-      snowflake.y = -10;
-      snowflake.x = Math.random() * this.canvas.width;
-    }
-    if (snowflake.x > this.canvas.width) {
-      snowflake.x = 0;
-    } else if (snowflake.x < 0) {
-      snowflake.x = this.canvas.width;
-    }
-
-    // Draw snowflake with gradient for depth on snow canvas
-    // Black on light theme, white on dark theme
-    const snowColor = this.isDark ? '255, 255, 255' : '0, 0, 0';
-
-    const gradient = this.snowCtx.createRadialGradient(
-      snowflake.x,
-      snowflake.y,
-      0,
-      snowflake.x,
-      snowflake.y,
-      snowflake.radius * 2
-    );
-
-    gradient.addColorStop(0, `rgba(${snowColor}, ${snowflake.opacity})`);
-    gradient.addColorStop(1, `rgba(${snowColor}, 0)`);
-
-    this.snowCtx.beginPath();
-    this.snowCtx.arc(snowflake.x, snowflake.y, snowflake.radius * 2, 0, Math.PI * 2);
-    this.snowCtx.fillStyle = gradient;
-    this.snowCtx.fill();
-
-    // Draw solid center
-    this.snowCtx.beginPath();
-    this.snowCtx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
-    this.snowCtx.fillStyle = `rgba(${snowColor}, ${snowflake.opacity * 0.9})`;
-    this.snowCtx.fill();
-  }
-
   drawConnections() {
-    // Skip connections on mobile for performance
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) return;
 
     const maxDistance = 150;
+    const maxDistanceSquared = maxDistance * maxDistance;
+
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i + 1; j < this.particles.length; j++) {
         const dx = this.particles[i].x - this.particles[j].x;
         const dy = this.particles[i].y - this.particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distanceSquared = dx * dx + dy * dy;
 
-        if (distance < maxDistance) {
+        // Use squared distance to avoid sqrt until necessary
+        if (distanceSquared < maxDistanceSquared) {
+          const distance = Math.sqrt(distanceSquared);
           const opacity = (1 - distance / maxDistance) * 0.2;
           this.ctx.beginPath();
           this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
@@ -438,8 +397,9 @@ class BackgroundAnimation {
   }
 
   animate() {
+    if (!this.isVisible) return;
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.snowCtx.clearRect(0, 0, this.snowCanvas.width, this.snowCanvas.height);
 
     if (this.stars) {
       this.stars.forEach((star) => this.drawStar(star));
@@ -462,15 +422,19 @@ class BackgroundAnimation {
     this.drawConnections();
 
     this.particles.forEach((particle) => {
-      const dx = particle.x - this.mouse.x;
-      const dy = particle.y - this.mouse.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const minDistance = 100;
+      if (!isMobile) {
+        const dx = particle.x - this.mouse.x;
+        const dy = particle.y - this.mouse.y;
+        const distanceSquared = dx * dx + dy * dy;
+        const minDistance = 100;
+        const minDistanceSquared = minDistance * minDistance;
 
-      if (distance < minDistance) {
-        const force = (minDistance - distance) / minDistance;
-        particle.x += (dx / distance) * force * 2;
-        particle.y += (dy / distance) * force * 2;
+        if (distanceSquared < minDistanceSquared) {
+          const distance = Math.sqrt(distanceSquared);
+          const force = (minDistance - distance) / minDistance;
+          particle.x += (dx / distance) * force * 2;
+          particle.y += (dy / distance) * force * 2;
+        }
       }
 
       particle.x += particle.vx;
@@ -482,12 +446,7 @@ class BackgroundAnimation {
       this.drawParticle(particle);
     });
 
-    // Draw snowflakes on separate canvas (foreground with high z-index)
-    if (this.snowflakes) {
-      this.snowflakes.forEach((snowflake) => this.drawSnowflake(snowflake));
-    }
-
-    requestAnimationFrame(() => this.animate());
+    this.animationId = requestAnimationFrame(() => this.animate());
   }
 }
 
@@ -559,8 +518,8 @@ function animateStackSection() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".btn");
-  const frames = document.querySelectorAll(".frame");
+  const buttons = document.querySelectorAll(".sidebar-btn, .sidebar-logo-btn, .sidebar-theme-btn");
+  const frames = document.querySelectorAll(".scroll-section");
   const cards = document.querySelectorAll(".card");
   const body = document.body;
   const welcomeText1 = document.querySelector("#welcome-text-1");
@@ -578,482 +537,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const bgAnimation = new BackgroundAnimation();
 
-  // Mini-game: Catch the shapes
-  let gameScore = 0;
-  const gameCounter = document.getElementById("game-counter");
-  const shapes = ["star", "circle", "triangle"];
+  // ===== BUBBLE NAV INDICATOR =====
+  const sidebarNav = document.querySelector(".sidebar-nav");
+  const bubbleIndicator = document.createElement("div");
+  bubbleIndicator.className = "bubble-indicator";
+  sidebarNav.appendChild(bubbleIndicator);
 
-  function createCatchShape() {
-    const shape = document.createElement("div");
-    shape.className = `catch-shape ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+  function updateBubble(activeBtn) {
+    if (!activeBtn || !sidebarNav) return;
+    const navRect = sidebarNav.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    bubbleIndicator.style.top = (btnRect.top - navRect.top) + "px";
+    bubbleIndicator.style.height = btnRect.height + "px";
+  }
 
-    const edge = Math.floor(Math.random() * 4);
-    const margin = 30;
-    const size = 35;
-
-    let startX, startY;
-    switch (edge) {
-      case 0: // Top
-        startX = Math.random() * (window.innerWidth - size);
-        startY = margin;
-        break;
-      case 1: // Right
-        startX = window.innerWidth - margin - size;
-        startY = Math.random() * (window.innerHeight - size);
-        break;
-      case 2: // Bottom
-        startX = Math.random() * (window.innerWidth - size);
-        startY = window.innerHeight - margin - size;
-        break;
-      case 3: // Left
-        startX = margin;
-        startY = Math.random() * (window.innerHeight - size);
-        break;
-    }
-
-    shape.style.left = `${startX}px`;
-    shape.style.top = `${startY}px`;
-
-    // Cosmic debris floating animation - drift along edges only
-    let driftX, driftY;
-
-    // Drift parallel to the edge, not towards center
-    switch (edge) {
-      case 0: // Top - drift left/right
-        driftX = (Math.random() - 0.5) * 200;
-        driftY = Math.random() * 50; // slight downward only
-        break;
-      case 1: // Right - drift up/down
-        driftX = -Math.random() * 50; // slight leftward only
-        driftY = (Math.random() - 0.5) * 200;
-        break;
-      case 2: // Bottom - drift left/right
-        driftX = (Math.random() - 0.5) * 200;
-        driftY = -Math.random() * 50; // slight upward only
-        break;
-      case 3: // Left - drift up/down
-        driftX = Math.random() * 50; // slight rightward only
-        driftY = (Math.random() - 0.5) * 200;
-        break;
-    }
-
-    const rotation = Math.random() * 360;
-    const duration = 10000 + Math.random() * 5000;
-
-    shape.addEventListener("click", (e) => {
-      e.stopPropagation();
-      gameScore++;
-
-      // Show counter on first catch
-      if (gameScore === 1) {
-        gameCounter.classList.add("visible");
-      }
-
-      gameCounter.textContent = `⭐ ${gameScore}`;
-      gameCounter.classList.add("pulse");
-      setTimeout(() => gameCounter.classList.remove("pulse"), 300);
-
-      anime.remove(shape);
-      anime({
-        targets: shape,
-        scale: [1, 0],
-        rotate: `+=${rotation * 2}`,
-        opacity: [0.7, 0],
-        duration: 300,
-        easing: "easeInQuad",
-        complete: () => shape.remove()
+  // Position bubble on initial active button
+  const initialActive = sidebarNav.querySelector(".sidebar-btn.active");
+  if (initialActive) {
+    // No transition on first position
+    bubbleIndicator.style.transition = "none";
+    updateBubble(initialActive);
+    // Re-enable transition after layout
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bubbleIndicator.style.transition = "";
       });
     });
-
-    document.body.appendChild(shape);
-
-    anime({
-      targets: shape,
-      translateX: [0, driftX],
-      translateY: [0, driftY],
-      rotate: [0, rotation],
-      opacity: [0, 0.7],
-      duration: duration,
-      easing: "linear",
-      complete: () => {
-        if (shape.parentElement) {
-          anime({
-            targets: shape,
-            opacity: [0.7, 0],
-            duration: 500,
-            easing: "easeOutQuad",
-            complete: () => shape.remove()
-          });
-        }
-      }
-    });
   }
 
-  function startShapeSpawner() {
-    // Reduce spawn rate on mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const minDelay = isMobile ? 6000 : 4000;
-    const maxDelay = isMobile ? 10000 : 6000;
-
-    const spawn = () => {
-      createCatchShape();
-      setTimeout(spawn, minDelay + Math.random() * maxDelay);
-    };
-    setTimeout(spawn, 2000);
-  }
-
-  startShapeSpawner();
-
-  // Sudoku Easter Egg
-  const sudokuModal = document.getElementById("sudoku-modal");
-  const sudokuGrid = document.getElementById("sudoku-grid");
-  const sudokuClose = document.getElementById("sudoku-close");
-  const sudokuCheck = document.getElementById("sudoku-check");
-  const sudokuNew = document.getElementById("sudoku-new");
-  const yearTrigger = document.getElementById("year-trigger");
-  const sudokuMessage = document.getElementById("sudoku-message");
-  const sudokuTimer = document.getElementById("sudoku-timer");
-
-  let sudokuPuzzle = [];
-  let sudokuSolution = [];
-  let victoryStars = [];
-  let timerInterval = null;
-  let startTime = null;
-  let elapsedTime = 0;
-
-  // Simple Sudoku generator
-  function generateSudoku() {
-    // Base solved puzzle
-    const base = [
-      [5,3,4,6,7,8,9,1,2],
-      [6,7,2,1,9,5,3,4,8],
-      [1,9,8,3,4,2,5,6,7],
-      [8,5,9,7,6,1,4,2,3],
-      [4,2,6,8,5,3,7,9,1],
-      [7,1,3,9,2,4,8,5,6],
-      [9,6,1,5,3,7,2,8,4],
-      [2,8,7,4,1,9,6,3,5],
-      [3,4,5,2,8,6,1,7,9]
-    ];
-
-    // Shuffle rows within blocks
-    const shuffled = JSON.parse(JSON.stringify(base));
-
-    // Remove random cells (40-50 cells)
-    const puzzle = JSON.parse(JSON.stringify(shuffled));
-    const cellsToRemove = 40 + Math.floor(Math.random() * 10);
-
-    for (let i = 0; i < cellsToRemove; i++) {
-      const row = Math.floor(Math.random() * 9);
-      const col = Math.floor(Math.random() * 9);
-      puzzle[row][col] = 0;
-    }
-
-    sudokuSolution = shuffled;
-    return puzzle;
-  }
-
-  function renderSudoku(puzzle) {
-    sudokuGrid.innerHTML = "";
-
-    for (let row = 0; row < 9; row++) {
-      for (let col = 0; col < 9; col++) {
-        const cell = document.createElement("div");
-        cell.className = "sudoku-cell";
-
-        const input = document.createElement("input");
-        input.type = "text";
-        input.maxLength = 1;
-        input.dataset.row = row;
-        input.dataset.col = col;
-
-        if (puzzle[row][col] !== 0) {
-          input.value = puzzle[row][col];
-          input.disabled = true;
-          cell.classList.add("fixed");
-        }
-
-        input.addEventListener("input", (e) => {
-          e.target.value = e.target.value.replace(/[^1-9]/g, "");
-        });
-
-        cell.appendChild(input);
-        sudokuGrid.appendChild(cell);
-      }
-    }
-  }
-
-  function typeMessage(element, text, speed = 50) {
-    element.innerHTML = "";
-    let index = 0;
-
-    function type() {
-      if (index < text.length) {
-        element.innerHTML += text[index] === "\n" ? "<br>" : text[index];
-        index++;
-        setTimeout(type, speed);
-      }
-    }
-    type();
-  }
-
-  function createVictoryStars() {
-    const count = 30; // Not too many to avoid lag
-
-    for (let i = 0; i < count; i++) {
-      setTimeout(() => {
-        const startX = Math.random() * window.innerWidth;
-        const startY = -50;
-
-        victoryStars.push({
-          x: startX,
-          y: startY,
-          vx: (Math.random() - 0.5) * 3,
-          vy: Math.random() * 4 + 4,
-          element: null
-        });
-      }, i * 40);
-    }
-  }
-
-  function checkSudoku() {
-    const cells = sudokuGrid.querySelectorAll("input");
-    let correct = true;
-    let allFilled = true;
-
-    cells.forEach(input => {
-      const row = parseInt(input.dataset.row);
-      const col = parseInt(input.dataset.col);
-      const value = parseInt(input.value) || 0;
-
-      input.parentElement.classList.remove("error");
-
-      if (!input.value) {
-        allFilled = false;
-      }
-
-      if (value !== sudokuSolution[row][col]) {
-        correct = false;
-        if (value !== 0) {
-          input.parentElement.classList.add("error");
-        }
-      }
-    });
-
-    if (!allFilled) {
-      typeMessage(sudokuMessage, "Sudoku is not completed yet...");
-    } else if (correct) {
-      stopTimer();
-      const finalTime = sudokuTimer.textContent;
-      typeMessage(sudokuMessage, `🎉 Congratulations! Time: ${finalTime}`);
-
-      // Victory animation - numbers fall
-      const cellElements = Array.from(sudokuGrid.querySelectorAll(".sudoku-cell"));
-      anime({
-        targets: cellElements,
-        translateY: [0, 1000],
-        rotate: () => Math.random() * 720 - 360,
-        opacity: [1, 0],
-        delay: anime.stagger(30),
-        duration: 1500,
-        easing: "easeInQuad"
+  // Reposition bubble on resize
+  window.addEventListener("resize", () => {
+    const currentActive = sidebarNav.querySelector(".sidebar-btn.active");
+    if (currentActive) {
+      bubbleIndicator.style.transition = "none";
+      updateBubble(currentActive);
+      requestAnimationFrame(() => {
+        bubbleIndicator.style.transition = "";
       });
-
-      // Star shower across whole screen
-      createVictoryStars();
-
-    } else {
-      typeMessage(sudokuMessage, "Some numbers are incorrect...");
-      setTimeout(() => {
-        cells.forEach(input => input.parentElement.classList.remove("error"));
-      }, 2000);
     }
-  }
+  }, { passive: true });
 
-  function startTimer() {
-    if (timerInterval) clearInterval(timerInterval);
-    startTime = Date.now() - elapsedTime;
-
-    timerInterval = setInterval(() => {
-      elapsedTime = Date.now() - startTime;
-      const seconds = Math.floor(elapsedTime / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const displaySeconds = seconds % 60;
-
-      sudokuTimer.textContent = `${String(minutes).padStart(2, '0')}:${String(displaySeconds).padStart(2, '0')}`;
-    }, 1000);
-  }
-
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  }
-
-  function resetTimer() {
-    stopTimer();
-    elapsedTime = 0;
-    sudokuTimer.textContent = "00:00";
-  }
-
-  function newSudoku() {
-    sudokuPuzzle = generateSudoku();
-    renderSudoku(sudokuPuzzle);
-    sudokuMessage.innerHTML = "";
-    victoryStars = [];
-    resetTimer();
-    startTimer();
-  }
-
-  // Victory stars animation loop
-  function animateVictoryStars() {
-    victoryStars = victoryStars.filter(star => {
-      star.y += star.vy;
-      star.x += star.vx;
-
-      if (star.y > window.innerHeight) {
-        return false;
-      }
-
-      // Draw on canvas
-      if (bgAnimation && bgAnimation.ctx) {
-        const ctx = bgAnimation.ctx;
-        const size = 3;
-
-        ctx.save();
-        ctx.translate(star.x, star.y);
-        ctx.rotate(star.y * 0.01);
-
-        // Star shape
-        ctx.beginPath();
-        for (let i = 0; i < 5; i++) {
-          const angle = (i * 4 * Math.PI) / 5;
-          const x = Math.cos(angle) * size;
-          const y = Math.sin(angle) * size;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-
-        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 2);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-        ctx.fillStyle = gradient;
-        ctx.fill();
-        ctx.restore();
-      }
-
-      return true;
-    });
-
-    if (victoryStars.length > 0) {
-      requestAnimationFrame(animateVictoryStars);
-    }
-  }
-
-  // Start victory animation when stars are created
-  setInterval(() => {
-    if (victoryStars.length > 0) {
-      animateVictoryStars();
-    }
-  }, 16);
-
-  yearTrigger.addEventListener("click", () => {
-    sudokuModal.classList.add("show");
-    if (sudokuGrid.children.length === 0) {
-      newSudoku();
-    } else if (!timerInterval) {
-      startTimer();
-    }
-  });
-
-  sudokuClose.addEventListener("click", () => {
-    sudokuModal.classList.remove("show");
-    stopTimer();
-  });
-
-  sudokuModal.addEventListener("click", (e) => {
-    if (e.target === sudokuModal) {
-      sudokuModal.classList.remove("show");
-      stopTimer();
-    }
-  });
-
-  sudokuCheck.addEventListener("click", checkSudoku);
-  sudokuNew.addEventListener("click", newSudoku);
-
-  // Year typing effect like "About me" (character by character, only 1 digit changes)
-  function typeEraseYear() {
-    const yearTrigger = document.getElementById("year-trigger");
-    let delay = 0;
-
-    // Step 1: Erase from "2025" to "202" (remove "5")
-    setTimeout(() => {
-      yearTrigger.textContent = "202";
-    }, delay += 100);
-
-    // Step 2: Type "6" -> "2026"
-    setTimeout(() => {
-      yearTrigger.textContent = "2026";
-    }, delay += 150);
-
-    // Step 3: Wait 5 seconds, then reverse
-    setTimeout(() => {
-      let reverseDelay = 0;
-
-      // Erase "6" -> "202"
-      setTimeout(() => {
-        yearTrigger.textContent = "202";
-      }, reverseDelay += 100);
-
-      // Type "5" -> "2025"
-      setTimeout(() => {
-        yearTrigger.textContent = "2025";
-      }, reverseDelay += 150);
-
-    }, delay + 5000);
-  }
-
-  // Randomly trigger year change every 8-15 seconds
-  function scheduleYearChange() {
-    const delay = 8000 + Math.random() * 7000;
-    setTimeout(() => {
-      typeEraseYear();
-      scheduleYearChange();
-    }, delay);
-  }
-
-  scheduleYearChange();
-
-  // Lamp physics
+  // Simple lamp swinging animation (no mouse tracking)
   const lampButton = document.getElementById("light-dark-btn");
-  const lamp = lampButton.querySelector(".theme-icon, .theme-icon-dark");
   let lampAngle = 0;
   let lampVelocity = 0;
-  const lampDamping = 0.88;
-  const lampStiffness = 0.12;
+  const lampDamping = 0.94;
+  const lampStiffness = 0.06;
+  const lampNaturalSwing = 0.08; // Increased swing amplitude
 
-  function updateLampPhysics(mouseX, mouseY) {
+  function updateLampSwing() {
     if (!lampButton) return;
 
-    const rect = lampButton.getBoundingClientRect();
-    const lampCenterX = rect.left + rect.width / 2;
-    const lampTopY = rect.top;
+    // Add sine wave force to create natural swinging
+    const time = Date.now() * 0.001;
+    const swingForce = Math.sin(time * 1.2) * lampNaturalSwing;
 
-    const dx = mouseX - lampCenterX;
-    const dy = mouseY - lampTopY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const maxDistance = 120;
-
-    if (distance < maxDistance) {
-      const force = (1 - distance / maxDistance) * 0.25;
-      const normalizedDx = dx / distance;
-      const pushAngle = -normalizedDx * force * 15;
-      lampVelocity += pushAngle;
-    }
-
+    lampVelocity += swingForce;
     lampVelocity += -lampAngle * lampStiffness;
     lampVelocity *= lampDamping;
     lampAngle += lampVelocity;
@@ -1065,113 +604,88 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeLamp) {
       activeLamp.style.transform = `rotate(${lampAngle}deg)`;
     }
+
+    requestAnimationFrame(updateLampSwing);
   }
 
-  // Disable animations on mobile
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
   if (!isMobile) {
-    let animationFrameId;
-    document.addEventListener("mousemove", (e) => {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => {
-        updateLampPhysics(e.clientX, e.clientY);
-      });
-    });
+    updateLampSwing();
   }
 
-  // Magnetic buttons with smooth following (only on desktop)
+  // ===== LIQUID GLASS INTERACTIONS (desktop only) =====
   if (!isMobile) {
-    const footerButtons = document.querySelectorAll("footer .btn");
-    const buttonTargets = new Map();
+    const sidebarButtons = document.querySelectorAll(".sidebar-btn");
 
-    footerButtons.forEach((btn) => {
-      buttonTargets.set(btn, { x: 0, y: 0, currentX: 0, currentY: 0 });
+    // Helper: random organic-rectangular border-radius (subtle variation, not circular)
+    function randomBlobRadius() {
+      const vals = [];
+      for (let i = 0; i < 4; i++) {
+        vals.push(Math.floor(8 + Math.random() * 12) + "px");
+      }
+      return vals[0] + " " + vals[1] + " " + vals[2] + " " + vals[3];
+    }
 
-      const handleMagneticEffect = (clientX, clientY) => {
-        const rect = btn.getBoundingClientRect();
-        const x = clientX - rect.left - rect.width / 2;
-        const y = clientY - rect.top - rect.height / 2;
-        const distance = Math.sqrt(x * x + y * y);
-        const maxDistance = 80;
-
-        if (distance < maxDistance) {
-          const strength = (1 - distance / maxDistance) * 0.4;
-          const target = buttonTargets.get(btn);
-          target.x = x * strength;
-          target.y = y * strength;
-        }
-      };
-
-      const handleReset = () => {
-        const target = buttonTargets.get(btn);
-        target.x = 0;
-        target.y = 0;
-        btn.style.transition = "background 0.3s ease, color 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
-      };
-
-      btn.addEventListener("mouseenter", () => {
-        btn.style.transition = "background 0.3s ease, color 0.3s ease";
-      });
-
-      btn.addEventListener("mousemove", (e) => {
-        handleMagneticEffect(e.clientX, e.clientY);
-      });
-
-      btn.addEventListener("mouseleave", handleReset);
-
-      // Ripple effect
+    // Liquid ripple + hover morph for sidebar buttons
+    sidebarButtons.forEach((btn) => {
+      // Liquid ripple on click
       btn.addEventListener("click", (e) => {
-        const ripple = document.createElement("span");
-        ripple.classList.add("ripple");
+        const ripple = document.createElement("div");
+        ripple.className = "lg-ripple";
         const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
+        const size = Math.max(rect.width, rect.height) * 1.5;
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
 
-        ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
+        ripple.style.width = size + "px";
+        ripple.style.height = size + "px";
+        ripple.style.left = x + "px";
+        ripple.style.top = y + "px";
 
         btn.appendChild(ripple);
+        ripple.addEventListener("animationend", () => ripple.remove());
+      });
 
-        setTimeout(() => ripple.remove(), 600);
+      // Hover morph — random blob shape
+      btn.addEventListener("mouseenter", () => {
+        btn.style.borderRadius = randomBlobRadius();
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.borderRadius = "";
       });
     });
 
-    // Smooth magnetic animation loop
-    function animateMagneticButtons() {
-      buttonTargets.forEach((target, btn) => {
-        const ease = 0.15;
-        target.currentX += (target.x - target.currentX) * ease;
-        target.currentY += (target.y - target.currentY) * ease;
-
-        if (Math.abs(target.currentX) > 0.01 || Math.abs(target.currentY) > 0.01) {
-          btn.style.transform = `translate(${target.currentX}px, ${target.currentY}px)`;
-        } else if (target.x === 0 && target.y === 0) {
-          btn.style.transform = "translate(0, 0)";
-        }
+    // Hover morph for stack cards
+    const allStackBlocks = document.querySelectorAll("#stack .stack_block");
+    allStackBlocks.forEach((block) => {
+      block.addEventListener("mouseenter", () => {
+        block.style.borderRadius = randomBlobRadius();
       });
+      block.addEventListener("mouseleave", () => {
+        block.style.borderRadius = "";
+      });
+    });
 
-      requestAnimationFrame(animateMagneticButtons);
-    }
-    animateMagneticButtons();
+    // Hover morph for contact links
+    const contactLinks = document.querySelectorAll(".contact-link");
+    contactLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        link.style.borderRadius = randomBlobRadius();
+      });
+      link.addEventListener("mouseleave", () => {
+        link.style.borderRadius = "";
+      });
+    });
   }
 
   function toggleDarkTheme() {
     const isDark = !body.classList.contains("dark"); // Will be the NEW state after toggle
     body.classList.toggle("dark");
 
-    const allButtons = document.querySelectorAll(".btn");
+    const allButtons = document.querySelectorAll(".btn, .sidebar-btn");
     allButtons.forEach((btn) => btn.classList.toggle("dark"));
 
     arrows.forEach((arrow) => arrow.classList.toggle("dark"));
     themeSecondary.forEach((el) => el.classList.toggle("dark"));
-
-    // Update game counter theme
-    if (gameCounter) {
-      gameCounter.classList.toggle("dark", isDark);
-    }
 
     // FORCE update project cards
     const projectCards = document.querySelectorAll(".project-card");
@@ -1190,12 +704,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     themeButton.classList.toggle("dark");
     themeButtonDark.classList.toggle("dark");
-    if (githubLink) githubLink.classList.toggle("dark");
     bgAnimation.updateTheme(body.classList.contains("dark"));
 
-    // FORCE update footer buttons
-    const footerButtons = document.querySelectorAll("footer .btn");
-    footerButtons.forEach((btn) => {
+    // Update glass cursor
+    const cursorEl = document.getElementById("circle");
+    if (cursorEl) {
+      if (isDark) {
+        cursorEl.style.width = "1.2rem";
+        cursorEl.style.height = "1.2rem";
+        cursorEl.style.background = "radial-gradient(circle, rgba(180, 200, 255, 0.35), rgba(180, 200, 255, 0.1))";
+        cursorEl.style.opacity = "0.6";
+        cursorEl.style.border = "1px solid rgba(255, 255, 255, 0.15)";
+        cursorEl.style.boxShadow = "0 0 8px rgba(150, 180, 255, 0.2)";
+      } else {
+        cursorEl.style.width = "1rem";
+        cursorEl.style.height = "1rem";
+        cursorEl.style.background = "#555";
+        cursorEl.style.opacity = "0.4";
+        cursorEl.style.border = "none";
+        cursorEl.style.boxShadow = "none";
+      }
+    }
+
+    // FORCE update sidebar buttons
+    const sidebarButtons = document.querySelectorAll(".sidebar-btn");
+    sidebarButtons.forEach((btn) => {
       if (isDark && !btn.classList.contains("dark")) {
         btn.classList.add("dark");
       } else if (!isDark && btn.classList.contains("dark")) {
@@ -1215,9 +748,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setTimeout(() => {
-    const footerButtons = document.querySelectorAll("footer .btn");
+    const sidebarButtons = document.querySelectorAll(".sidebar-btn");
     if (body.classList.contains("dark")) {
-      footerButtons.forEach((btn) => {
+      sidebarButtons.forEach((btn) => {
         if (!btn.classList.contains("dark")) {
           btn.classList.add("dark");
         }
@@ -1225,60 +758,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 100);
 
-  const circle = document.createElement("div");
-  Object.assign(circle.style, {
-    position: "fixed",
-    width: "1rem",
-    height: "1rem",
-    backgroundColor: "#333333",
-    borderRadius: "50%",
-    pointerEvents: "none",
-    zIndex: "1000",
-    transform: "translate(-50%, -50%)",
-  });
-  circle.id = "circle";
-  document.body.appendChild(circle);
-  let mouseX = 0,
-    mouseY = 0;
-  let circleX = 0,
-    circleY = 0;
-  const circleSpeed = 0.02;
+  // Following circle cursor (desktop only)
+  if (!isMobile) {
+    const circle = document.createElement("div");
+    const isDarkNow = body.classList.contains("dark");
+    Object.assign(circle.style, {
+      position: "fixed",
+      width: isDarkNow ? "1.2rem" : "1rem",
+      height: isDarkNow ? "1.2rem" : "1rem",
+      background: isDarkNow
+        ? "radial-gradient(circle, rgba(180, 200, 255, 0.35), rgba(180, 200, 255, 0.1))"
+        : "#555",
+      borderRadius: "50%",
+      pointerEvents: "none",
+      zIndex: "1000",
+      transform: "translate(-50%, -50%)",
+      opacity: isDarkNow ? "0.6" : "0.4",
+      border: isDarkNow ? "1px solid rgba(255, 255, 255, 0.15)" : "none",
+      boxShadow: isDarkNow ? "0 0 8px rgba(150, 180, 255, 0.2)" : "none",
+      transition: "opacity 0.3s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease",
+    });
+    circle.id = "circle";
+    document.body.appendChild(circle);
+    let mouseX = 0,
+      mouseY = 0;
+    let circleX = 0,
+      circleY = 0;
+    const circleSpeed = 0.02;
 
-  document.addEventListener(
-    "mousemove",
-    throttle((e) => {
+    document.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-    }, 16),
-  );
+    }, { passive: true });
 
-  function animateCircle() {
-    circleX += (mouseX + 10 - circleX) * circleSpeed;
-    circleY += (mouseY - 50 - circleY) * circleSpeed;
-    circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-    requestAnimationFrame(animateCircle);
-  }
-  animateCircle();
-
-  function throttle(func, limit) {
-    let lastFunc, lastRan;
-    return function (...args) {
-      if (!lastRan) {
-        func.apply(this, args);
-        lastRan = Date.now();
-      } else {
-        clearTimeout(lastFunc);
-        lastFunc = setTimeout(
-          () => {
-            if (Date.now() - lastRan >= limit) {
-              func.apply(this, args);
-              lastRan = Date.now();
-            }
-          },
-          limit - (Date.now() - lastRan),
-        );
-      }
-    };
+    function animateCircle() {
+      circleX += (mouseX + 10 - circleX) * circleSpeed;
+      circleY += (mouseY - 50 - circleY) * circleSpeed;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animateCircle);
+    }
+    animateCircle();
   }
 
   function playWelcomeAnimation() {
@@ -1366,14 +885,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(playWelcomeAnimation, 1500);
 
-  const frameOrder = ["welcome", "about-me", "stack", "projects"];
-  let currentFrameIndex = 0;
+  const sectionOrder = ["welcome", "about-me", "stack", "projects"];
+  const scrollContainer = document.querySelector(".horizontal-scroll-container");
+  let currentSectionIndex = 1; // Start at about-me
 
+  // Sidebar button clicks
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const targetId = button.getAttribute("data-target");
-      const targetFrame = document.getElementById(targetId);
-      const targetBtnFrame = document.getElementById(button.getAttribute("id"));
+      const targetSection = document.getElementById(targetId);
 
       if (targetId === "theme") {
         localStorage.setItem(
@@ -1384,78 +904,143 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const targetIndex = frameOrder.indexOf(targetId);
-      const currentFrame = frames[currentFrameIndex];
-      const direction = targetIndex > currentFrameIndex ? "left" : "right";
+      if (targetSection) {
+        // On mobile: show/hide sections instead of scrolling
+        if (isMobile) {
+          frames.forEach((frame) => frame.classList.remove("active"));
+          targetSection.classList.add("active");
+        } else {
+          // Desktop: Smooth scroll to target section
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+        }
 
-      if (currentFrame) {
-        currentFrame.classList.remove("active");
-        currentFrame.classList.add(
-          direction === "left" ? "slide-out-left" : "slide-out-right",
-        );
+        // Update active button
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
 
-        setTimeout(() => {
-          currentFrame.classList.remove("slide-out-left", "slide-out-right");
-        }, 500);
-      }
+        // Move bubble indicator
+        if (button.classList.contains("sidebar-btn")) {
+          updateBubble(button);
+        }
 
-      targetFrame.classList.add(
-        direction === "left" ? "slide-in-right" : "slide-in-left",
-      );
+        // Update current index
+        currentSectionIndex = sectionOrder.indexOf(targetId);
 
-      setTimeout(() => {
-        targetFrame.classList.remove("slide-in-left", "slide-in-right");
-        targetFrame.classList.add("active");
-      }, 10);
+        // Trigger animations based on section
+        switch (targetId) {
+          case "welcome":
+            playWelcomeAnimation();
+            break;
 
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      targetBtnFrame.classList.add("active");
+          case "about-me":
+            typeWriter(
+              "typing-text",
+              "My name is Artur.\nI`m the best one.",
+              50,
+            );
+            break;
 
-      currentFrameIndex = targetIndex;
+          case "stack":
+            animateStackSection();
+            break;
 
-      switch (targetId) {
-        case "welcome":
-          playWelcomeAnimation();
-          break;
+          case "projects":
+            animateProjectsSection();
 
-        case "about-me":
-          typeWriter(
-            "typing-text",
-            "My name is Artur.\nI`m the best one.",
-            50,
-          );
-          break;
+            new Swiper(".swiper", {
+              effect: "cards",
+              grabCursor: true,
+              cardsEffect: {
+                perSlideOffset: 5,
+                perSlideRotate: 1,
+                rotate: true,
+                slideShadows: false,
+              },
+              loop: true,
+              navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              },
+              speed: 400,
+            });
 
-        case "stack":
-          animateStackSection();
-          break;
-
-        case "projects":
-          animateProjectsSection();
-
-          new Swiper(".swiper", {
-            effect: "cards",
-            grabCursor: true,
-            cardsEffect: {
-              perSlideOffset: 5,
-              perSlideRotate: 1,
-              rotate: true,
-              slideShadows: false,
-            },
-            loop: true,
-            navigation: {
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            },
-            speed: 400,
-          });
-
-          const cards = document.querySelectorAll(".project-card");
-          if (body.classList.contains("dark")) {
-            cards.forEach((card) => card.classList.add("dark"));
-          }
-          break;
+            const cards = document.querySelectorAll(".project-card");
+            if (body.classList.contains("dark")) {
+              cards.forEach((card) => card.classList.add("dark"));
+            }
+            break;
+        }
       }
     });
   });
+
+  // Trigger section animations
+  function triggerSectionAnimation(sectionId) {
+    switch (sectionId) {
+      case "welcome":
+        playWelcomeAnimation();
+        break;
+      case "about-me":
+        typeWriter("typing-text", "My name is Artur.\nI`m the best one.", 50);
+        break;
+      case "stack":
+        animateStackSection();
+        break;
+      case "projects":
+        animateProjectsSection();
+        new Swiper(".swiper", {
+          effect: "cards",
+          grabCursor: true,
+          cardsEffect: {
+            perSlideOffset: 5,
+            perSlideRotate: 1,
+            rotate: true,
+            slideShadows: false,
+          },
+          loop: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          speed: 400,
+        });
+        const cards = document.querySelectorAll(".project-card");
+        if (body.classList.contains("dark")) {
+          cards.forEach((card) => card.classList.add("dark"));
+        }
+        break;
+    }
+  }
+
+  // Detect scroll position and update active button + trigger animations (desktop only)
+  if (scrollContainer && !isMobile) {
+    scrollContainer.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.scroll-section');
+      let currentIndex = 0;
+
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.left >= 0 && rect.left < window.innerWidth / 2) {
+          currentIndex = index;
+        }
+      });
+
+      if (currentIndex !== currentSectionIndex) {
+        currentSectionIndex = currentIndex;
+        const currentSection = sectionOrder[currentIndex];
+        const targetButton = document.querySelector(`[data-target="${currentSection}"]`);
+
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        if (targetButton) {
+          targetButton.classList.add("active");
+          if (targetButton.classList.contains("sidebar-btn")) {
+            updateBubble(targetButton);
+          }
+        }
+
+        // Trigger animation for the new section
+        triggerSectionAnimation(currentSection);
+      }
+    }, { passive: true });
+  }
 });

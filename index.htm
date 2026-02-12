@@ -2,7 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
         <title>Mamedov Artur</title>
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
@@ -27,183 +30,23 @@
         />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
         <script src="script.js" defer></script>
+        <script type="module" src="js/main.js"></script>
+        <script src="js/lang.js" defer></script>
     </head>
     <body class="body theme-text">
         <canvas id="background-canvas"></canvas>
-        <canvas id="snow-canvas"></canvas>
-        <div id="game-counter">⭐ 0</div>
 
-        <header>
-            <span
-                >© Mamedov Artur <span class="sudoku-trigger" id="year-trigger">2025</span> |
-                <a
-                    href="https://github.com/tripchanski"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="github-link"
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar theme-secondary">
+            <div class="sidebar-header">
+                <button
+                    class="btn sidebar-logo-btn"
+                    id="welcome-btn"
+                    data-target="welcome"
                 >
                     <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.166 8.839 21.489C9.339 21.579 9.521 21.269 9.521 21.004C9.521 20.769 9.513 20.146 9.508 19.318C6.726 19.91 6.139 17.965 6.139 17.965C5.685 16.81 5.029 16.501 5.029 16.501C4.121 15.893 5.098 15.906 5.098 15.906C6.101 15.977 6.629 16.926 6.629 16.926C7.521 18.453 8.97 18.011 9.539 17.758C9.631 17.11 9.889 16.668 10.175 16.42C7.955 16.169 5.62 15.31 5.62 11.474C5.62 10.376 6.01 9.477 6.649 8.773C6.546 8.522 6.203 7.507 6.747 6.136C6.747 6.136 7.586 5.868 9.496 7.159C10.294 6.937 11.147 6.826 12 6.822C12.853 6.826 13.706 6.937 14.504 7.159C16.414 5.868 17.253 6.136 17.253 6.136C17.797 7.507 17.454 8.522 17.351 8.773C17.99 9.477 18.38 10.376 18.38 11.474C18.38 15.318 16.041 16.167 13.813 16.413C14.172 16.724 14.491 17.337 14.491 18.276C14.491 19.631 14.479 20.724 14.479 21.004C14.479 21.271 14.659 21.584 15.167 21.488C19.138 20.163 22 16.417 22 12C22 6.477 17.523 2 12 2Z"
-                            fill="currentColor"
-                        />
-                    </svg>
-                </a>
-            </span>
-            <div class="header-btns">
-                <button class="btn" id="light-dark-btn" data-target="theme">
-                    <svg
-                        width="43"
-                        height="112"
-                        viewBox="0 0 43 112"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="theme-icon"
-                    >
-                        <path
-                            class="lamp-path"
-                            d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z"
-                            fill="white"
-                            stroke="#070707"
-                        />
-                        <path
-                            class="lamp-path"
-                            d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z"
-                            stroke="#070707"
-                        />
-                        <path
-                            class="lamp-path"
-                            d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z"
-                            stroke="#070707"
-                        />
-                        <path
-                            class="lamp-path"
-                            d="M21.5 35.0667L21.0041 -89.9563L21 -91"
-                            stroke="#070707"
-                            stroke-width="2"
-                        />
-                        <path
-                            class="lamp-path"
-                            d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z"
-                            fill="#070707"
-                            stroke="#070707"
-                        />
-                        <path
-                            class="lamp-path"
-                            d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z"
-                            fill="url(#paint0_linear_485_13)"
-                        />
-                        <mask id="path-7-inside-1_485_13" fill="white">
-                            <path
-                                class="lamp-path"
-                                d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
-                            />
-                        </mask>
-                        <path
-                            class="lamp-path"
-                            d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
-                            fill="white"
-                            fill-opacity="0.25"
-                            stroke="#070707"
-                            stroke-width="2"
-                            mask="url(#path-7-inside-1_485_13)"
-                        />
-                        <defs>
-                            <linearGradient
-                                id="paint0_linear_485_13"
-                                x1="21.5"
-                                y1="63.7334"
-                                x2="21.5"
-                                y2="111.033"
-                                gradientUnits="userSpaceOnUse"
-                            >
-                                <stop class="lamp-start" stop-color="white" />
-                                <stop
-                                    class="lamp-stop"
-                                    offset="1"
-                                    stop-color="white"
-                                    stop-opacity="0"
-                                />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <svg
-                        width="43"
-                        height="112"
-                        viewBox="0 0 43 112"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="theme-icon-dark"
-                    >
-                        <path
-                            d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z"
-                            fill="#707070"
-                            stroke="black"
-                        />
-                        <path
-                            d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z"
-                            stroke="black"
-                        />
-                        <path
-                            d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z"
-                            stroke="black"
-                        />
-                        <path
-                            d="M21.5 35.0667L21.0041 -89.9563L21 -91"
-                            stroke="black"
-                            stroke-width="2"
-                        />
-                        <path
-                            d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z"
-                            fill="black"
-                            stroke="black"
-                        />
-                        <path
-                            d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z"
-                            fill="url(#paint0_linear_485_77)"
-                        />
-                        <mask id="path-7-inside-1_485_77" fill="white">
-                            <path
-                                d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
-                            />
-                        </mask>
-                        <path
-                            d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
-                            fill="white"
-                            fill-opacity="0.25"
-                            stroke="black"
-                            stroke-width="2"
-                            mask="url(#path-7-inside-1_485_77)"
-                        />
-                        <defs>
-                            <linearGradient
-                                id="paint0_linear_485_77"
-                                x1="21.5"
-                                y1="63.7334"
-                                x2="21.5"
-                                y2="111.033"
-                                gradientUnits="userSpaceOnUse"
-                            >
-                                <stop stop-color="#707070" />
-                                <stop
-                                    offset="1"
-                                    stop-color="#171717"
-                                    stop-opacity="0"
-                                />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </button>
-                <button class="btn" id="welcome-btn" data-target="welcome">
-                    <svg
-                        width="108"
-                        height="88"
+                        width="54"
+                        height="44"
                         viewBox="0 0 108 88"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -230,744 +73,1045 @@
                     </svg>
                 </button>
             </div>
-        </header>
 
-        <div class="frames-container">
-            <div class="frame active theme-secondary" id="welcome">
-                <div class="content">
-                    <h1 class="text" id="welcome-text-1">Hello Everyone!</h1>
-                    <h1 class="text hidden" id="welcome-text-2">
-                        I’m Mamedov Artur.
-                    </h1>
-                </div>
-            </div>
-
-            <div class="frame theme-secondary" id="about-me">
-                <div class="content">
-                    <div id="typing-text"></div>
-                </div>
-            </div>
-
-            <div class="frame theme-secondary" id="stack">
-                <div class="content" id="stack_container">
-                    <div class="category">
-                        <h3>Languages</h3>
-                        <div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/python.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Python</span
-                                    ><span class="stack_yo_exp">5+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/html.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">HTML</span
-                                    ><span class="stack_yo_exp">4+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/css.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">CSS</span
-                                    ><span class="stack_yo_exp">4+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/js.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">JavaScript</span
-                                    ><span class="stack_yo_exp"
-                                        >2.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/php.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">PHP</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/md.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Markdown</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/languages/ts.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">TypeScript</span
-                                    ><span class="stack_yo_exp"
-                                        >0.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="category">
-                        <h3>Frameworks & Libraries</h3>
-                        <div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/discord.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Discord.py</span
-                                    ><span class="stack_yo_exp"
-                                        >4.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/pygame.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">PyGame</span
-                                    ><span class="stack_yo_exp"
-                                        >3.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/dj.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Django</span
-                                    ><span class="stack_yo_exp">3+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/jQuery.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">JQuery</span
-                                    ><span class="stack_yo_exp"
-                                        >2.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/aiogram.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Aiogram</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/fastapi.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">FastAPI</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/react.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">React</span
-                                    ><span class="stack_yo_exp"
-                                        >0.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/react_native.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">React Native</span
-                                    ><span class="stack_yo_exp"
-                                        >0.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/libraries/expo.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Expo</span
-                                    ><span class="stack_yo_exp"
-                                        >0.5+ years</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="category">
-                        <h3>SQL & NoSQL</h3>
-                        <div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/database/sqlite.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">SQLite</span
-                                    ><span class="stack_yo_exp">3+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/database/mongodb.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">MongoDB</span
-                                    ><span class="stack_yo_exp">3+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/database/mysql.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">MySQL</span
-                                    ><span class="stack_yo_exp">2+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/database/postgresql.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">PostgreSQL</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="category">
-                        <h3>Tools & DevOps</h3>
-                        <div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/tools/git.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Git</span
-                                    ><span class="stack_yo_exp">3+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/tools/docker.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Docker</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/tools/gunicorn.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Gunicorn</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                            <div class="stack_block card">
-                                <img
-                                    src="img/stack/tools/nginx.svg"
-                                    loading="lazy"
-                                />
-                                <div class="stack_content">
-                                    <span class="stack_name">Nginx</span
-                                    ><span class="stack_yo_exp">1+ years</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="frame theme-secondary" id="projects">
-                <div class="content">
-                    <div class="swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="project-card theme-secondary">
-                                    <div class="project-img">
-                                        <img
-                                            src="img/dexy.webp"
-                                            alt="Dexy Project"
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                    <div class="project-info">
-                                        <div class="project-main-info">
-                                            <h2 class="project-text">Dexy</h2>
-                                            <p class="about project-text">
-                                                First Individual Project Created
-                                                in Q3 2021. This was my first
-                                                full-fledged project — a Discord
-                                                bot written in Python. It
-                                                provides moderation tools and an
-                                                economic environment with
-                                                mini-games, allowing users to
-                                                earn points and level up. Thanks
-                                                to my initiative, I
-                                                significantly developed
-                                                algorithmic and logical
-                                                thinking.
-                                            </p>
-                                            <div class="stacks-for-project">
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Python
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #DiscordAPI
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-buttons"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="project-card theme-secondary">
-                                    <div class="project-img">
-                                        <img
-                                            src="img/ca2023.webp"
-                                            alt="CA 2023 Project"
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                    <div class="project-info">
-                                        <div class="project-main-info">
-                                            <h2 class="project-text">
-                                                Christmas Adventure 2023
-                                            </h2>
-                                            <p class="about project-text">
-                                                The game was created on December
-                                                31, 2023. My role: team leader,
-                                                programmer, designer, and sound
-                                                engineer. In this first project,
-                                                I improved problem-solving
-                                                skills, created the design,
-                                                wrote the script, and supported
-                                                coding. Our team brought the
-                                                game to the top.
-                                            </p>
-                                            <div class="stacks-for-project">
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Python
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #PyGame
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Photoshop
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-buttons">
-                                            <a
-                                                href="https://github.com/Tripchanski/Christmas_Adventure_2023"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <button class="btn-link">
-                                                    <img
-                                                        src="img/Github.svg"
-                                                        alt="Link"
-                                                        loading="lazy"
-                                                    />
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="project-card theme-secondary">
-                                    <div class="project-img">
-                                        <img
-                                            src="img/Flare.svg"
-                                            alt="Flare"
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                    <div class="project-info">
-                                        <div class="project-main-info">
-                                            <h2 class="project-text">
-                                                FlareRestaurant
-                                            </h2>
-                                            <p class="about project-text">
-                                                Second Team Project Completed in
-                                                July 2023. My role: team leader,
-                                                programmer, and designer. We
-                                                developed our first full-fledged
-                                                website, which turned out to be
-                                                quite successful. The main goal
-                                                was to showcase the knowledge
-                                                gained over a year of learning.
-                                            </p>
-                                            <div class="stacks-for-project">
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Python
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Django
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #SQL
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Figma
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #HTML
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #CSS
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #JavaScript
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #JQuery
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-buttons">
-                                            <a
-                                                href="https://github.com/Tripchanski/FlareRestaurant"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <button class="btn-link">
-                                                    <img
-                                                        src="img/Github.svg"
-                                                        alt="Link"
-                                                        loading="lazy"
-                                                    />
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="project-card theme-secondary">
-                                    <div class="project-img">
-                                        <img
-                                            src="img/SeCrew.svg"
-                                            alt="Flare"
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                    <div class="project-info">
-                                        <div class="project-main-info">
-                                            <h2 class="project-text">SeCrew</h2>
-                                            <p class="about project-text">
-                                                Landing page mockup for a
-                                                fictional security services
-                                                company. The project aims to
-                                                showcase design skills,
-                                                including the use of color
-                                                psychology, typography, proper
-                                                spacing, and content hierarchy.
-                                                The focus is also on
-                                                responsiveness, ensuring a
-                                                seamless user experience across
-                                                different devices.
-                                            </p>
-                                            <div class="stacks-for-project">
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Figma
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Adaptive_Design
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Color_Psychology
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Typography
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Spacing
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #Hierarchy
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-buttons">
-                                            <a
-                                                href="https://www.figma.com/proto/K7NYvGuL8fkVOagFrkPZLw/Landing?node-id=2-3&t=05Jsx0NBg1tINr5O-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A3"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <button class="btn-link">
-                                                    <img
-                                                        src="img/Figma.svg"
-                                                        alt="Link"
-                                                        loading="lazy"
-                                                    />
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="project-card theme-secondary">
-                                    <div class="project-img">
-                                        <img
-                                            src="img/BlackLock.png"
-                                            alt="Flare"
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                    <div class="project-info">
-                                        <div class="project-main-info">
-                                            <h2 class="project-text">
-                                                BlackLock
-                                            </h2>
-                                            <p class="about project-text">
-                                                Most task management apps make
-                                                the same critical mistake: they
-                                                let users mark tasks as complete
-                                                without actually doing them.
-                                                It's too easy to lie to yourself
-                                                with a simple checkbox.
-                                                BlackLock solves this problem by
-                                                requiring multiple confirmations
-                                                before marking a task as
-                                                complete. This deliberate
-                                                friction makes you pause and
-                                                think: "Maybe I should actually
-                                                complete this task in reality?"
-                                            </p>
-                                            <div class="stacks-for-project">
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #expo
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #react
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #ts
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #app
-                                                    </p>
-                                                </div>
-                                                <div class="stack-for-project">
-                                                    <p class="project-text">
-                                                        #productivity
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-buttons">
-                                            <a
-                                                href="https://github.com/tripchanski/BlackLock"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <button class="btn-link">
-                                                    <img
-                                                        src="img/Github.svg"
-                                                        alt="Link"
-                                                        loading="lazy"
-                                                    />
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <button
-                class="btn theme-secondary"
-                id="about-me-btn"
-                data-target="about-me"
-            >
-                <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 30 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            <nav class="sidebar-nav">
+                <button
+                    class="sidebar-btn btn theme-secondary active"
+                    id="about-me-btn"
+                    data-target="about-me"
                 >
-                    <path
-                        d="M20 21C20 19.6044 20 18.9067 19.8278 18.3389C19.44 17.0605 18.4395 16.06 17.1611 15.6722C16.5933 15.5 15.8956 15.5 14.5 15.5H9.5C8.10444 15.5 7.40665 15.5 6.83886 15.6722C5.56045 16.06 4.56004 17.0605 4.17224 18.3389C4 18.9067 4 19.6044 4 21M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z"
-                        stroke="#333333"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    /></svg
-                >About me
-            </button>
-            <button
-                class="btn theme-secondary"
-                id="stack-btn"
-                data-target="stack"
-            >
-                <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 30 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M15 20.6897H8.2C7.07989 20.6897 6.51984 20.6897 6.09202 20.4641C5.71569 20.2658 5.40973 19.9493 5.21799 19.56C5 19.1175 5 18.538 5 17.3793V7.44828C5 6.28955 5 5.71019 5.21799 5.26762C5.40973 4.87831 5.71569 4.5618 6.09202 4.36345C6.51984 4.13794 7.07989 4.13794 8.2 4.13794H8.6C10.8402 4.13794 11.9603 4.13794 12.816 4.58894C13.5686 4.98567 14.1805 5.61869 14.564 6.39729C15 7.28244 15 8.44117 15 10.7586M15 20.6897V10.7586M15 20.6897H21.8C22.9201 20.6897 23.4802 20.6897 23.908 20.4641C24.2843 20.2658 24.5903 19.9493 24.782 19.56C25 19.1175 25 18.538 25 17.3793V7.44828C25 6.28955 25 5.71019 24.782 5.26762C24.5903 4.87831 24.2843 4.5618 23.908 4.36345C23.4802 4.13794 22.9201 4.13794 21.8 4.13794H21.4C19.1598 4.13794 18.0397 4.13794 17.184 4.58894C16.4314 4.98567 15.8195 5.61869 15.436 6.39729C15 7.28244 15 8.44117 15 10.7586"
-                        stroke="#333333"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    /></svg
-                >Stack
-            </button>
-            <button
-                class="btn theme-secondary"
-                id="projects-btn"
-                data-target="projects"
-            >
-                <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 30 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M13 7L11.8845 4.76892C11.5634 4.1268 11.4029 3.80573 11.1634 3.57116C10.9516 3.36373 10.6963 3.20597 10.4161 3.10931C10.0992 3 9.74021 3 9.02229 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V7M2 7H17.2C18.8802 7 19.7202 7 20.362 7.32698C20.9265 7.6146 21.3854 8.07354 21.673 8.63803C22 9.27976 22 10.1198 22 11.8V16.2C22 17.8802 22 18.7202 21.673 19.362C21.3854 19.9265 20.9265 20.3854 20.362 20.673C19.7202 21 18.8802 21 17.2 21H6.8C5.11984 21 4.27976 21 3.63803 20.673C3.07354 20.3854 2.6146 19.9265 2.32698 19.362C2 18.7202 2 17.8802 2 16.2V7Z"
-                        stroke="#333333"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    /></svg
-                >Projects
-            </button>
-        </footer>
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 30 30"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M20 21C20 19.6044 20 18.9067 19.8278 18.3389C19.44 17.0605 18.4395 16.06 17.1611 15.6722C16.5933 15.5 15.8956 15.5 14.5 15.5H9.5C8.10444 15.5 7.40665 15.5 6.83886 15.6722C5.56045 16.06 4.56004 17.0605 4.17224 18.3389C4 18.9067 4 19.6044 4 21M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z"
+                            stroke="#333333"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <span data-i18n="nav.about">About</span>
+                </button>
 
-        <!-- Sudoku Easter Egg Modal -->
-        <div id="sudoku-modal">
-            <div class="sudoku-container">
-                <div class="sudoku-header">
-                    <h2>🎮 Secret Sudoku!</h2>
-                    <button class="sudoku-close" id="sudoku-close">×</button>
+                <button
+                    class="sidebar-btn btn theme-secondary"
+                    id="stack-btn"
+                    data-target="stack"
+                >
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 30 30"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M15 20.6897H8.2C7.07989 20.6897 6.51984 20.6897 6.09202 20.4641C5.71569 20.2658 5.40973 19.9493 5.21799 19.56C5 19.1175 5 18.538 5 17.3793V7.44828C5 6.28955 5 5.71019 5.21799 5.26762C5.40973 4.87831 5.71569 4.5618 6.09202 4.36345C6.51984 4.13794 7.07989 4.13794 8.2 4.13794H8.6C10.8402 4.13794 11.9603 4.13794 12.816 4.58894C13.5686 4.98567 14.1805 5.61869 14.564 6.39729C15 7.28244 15 8.44117 15 10.7586M15 20.6897V10.7586M15 20.6897H21.8C22.9201 20.6897 23.4802 20.6897 23.908 20.4641C24.2843 20.2658 24.5903 19.9493 24.782 19.56C25 19.1175 25 18.538 25 17.3793V7.44828C25 6.28955 25 5.71019 24.782 5.26762C24.5903 4.87831 24.2843 4.5618 23.908 4.36345C23.4802 4.13794 22.9201 4.13794 21.8 4.13794H21.4C19.1598 4.13794 18.0397 4.13794 17.184 4.58894C16.4314 4.98567 15.8195 5.61869 15.436 6.39729C15 7.28244 15 8.44117 15 10.7586"
+                            stroke="#333333"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <span data-i18n="nav.stack">Stack</span>
+                </button>
+
+                <button
+                    class="sidebar-btn btn theme-secondary"
+                    id="projects-btn"
+                    data-target="projects"
+                >
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 30 30"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M13 7L11.8845 4.76892C11.5634 4.1268 11.4029 3.80573 11.1634 3.57116C10.9516 3.36373 10.6963 3.20597 10.4161 3.10931C10.0992 3 9.74021 3 9.02229 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V7M2 7H17.2C18.8802 7 19.7202 7 20.362 7.32698C20.9265 7.6146 21.3854 8.07354 21.673 8.63803C22 9.27976 22 10.1198 22 11.8V16.2C22 17.8802 22 18.7202 21.673 19.362C21.3854 19.9265 20.9265 20.3854 20.362 20.673C19.7202 21 18.8802 21 17.2 21H6.8C5.11984 21 4.27976 21 3.63803 20.673C3.07354 20.3854 2.6146 19.9265 2.32698 19.362C2 18.7202 2 17.8802 2 16.2V7Z"
+                            stroke="#333333"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <span data-i18n="nav.projects">Projects</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-contacts">
+                    <h3 class="contacts-title" data-i18n="contact.title">
+                        Contact
+                    </h3>
+                    <div class="contact-links">
+                        <a
+                            href="https://github.com/tripchanski"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link"
+                            title="GitHub"
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.166 8.839 21.489C9.339 21.579 9.521 21.269 9.521 21.004C9.521 20.769 9.513 20.146 9.508 19.318C6.726 19.91 6.139 17.965 6.139 17.965C5.685 16.81 5.029 16.501 5.029 16.501C4.121 15.893 5.098 15.906 5.098 15.906C6.101 15.977 6.629 16.926 6.629 16.926C7.521 18.453 8.97 18.011 9.539 17.758C9.631 17.11 9.889 16.668 10.175 16.42C7.955 16.169 5.62 15.31 5.62 11.474C5.62 10.376 6.01 9.477 6.649 8.773C6.546 8.522 6.203 7.507 6.747 6.136C6.747 6.136 7.586 5.868 9.496 7.159C10.294 6.937 11.147 6.826 12 6.822C12.853 6.826 13.706 6.937 14.504 7.159C16.414 5.868 17.253 6.136 17.253 6.136C17.797 7.507 17.454 8.522 17.351 8.773C17.99 9.477 18.38 10.376 18.38 11.474C18.38 15.318 16.041 16.167 13.813 16.413C14.172 16.724 14.491 17.337 14.491 18.276C14.491 19.631 14.479 20.724 14.479 21.004C14.479 21.271 14.659 21.584 15.167 21.488C19.138 20.163 22 16.417 22 12C22 6.477 17.523 2 12 2Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </a>
+                        <a
+                            href="https://t.me/tripchanski"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link"
+                            title="Telegram"
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.01C14.25 17.06 13.81 16.63 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4582 14.006 10.4252 13.9973 10.3938C13.9886 10.3624 13.9724 10.3337 13.95 10.31C13.89 10.26 13.81 10.28 13.74 10.29C13.65 10.31 12.25 11.24 9.52 13.08C9.12 13.35 8.76 13.49 8.44 13.48C8.08 13.47 7.4 13.28 6.89 13.11C6.26 12.91 5.77 12.8 5.81 12.45C5.83 12.27 6.08 12.09 6.55 11.9C9.47 10.63 11.41 9.79 12.38 9.39C15.16 8.23 15.73 8.03 16.11 8.03C16.19 8.03 16.38 8.05 16.5 8.15C16.6 8.23 16.63 8.34 16.64 8.42C16.63 8.48 16.65 8.66 16.64 8.8Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="sudoku-info">
-                    <div class="sudoku-message" id="sudoku-message"></div>
-                    <div class="sudoku-timer" id="sudoku-timer">00:00</div>
+
+                <div class="sidebar-theme">
+                    <button
+                        class="btn sidebar-theme-btn"
+                        id="light-dark-btn"
+                        data-target="theme"
+                    >
+                        <svg
+                            width="30"
+                            height="56"
+                            viewBox="0 0 43 112"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="theme-icon"
+                        >
+                            <path
+                                class="lamp-path"
+                                d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z"
+                                fill="white"
+                                stroke="#070707"
+                            />
+                            <path
+                                class="lamp-path"
+                                d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z"
+                                stroke="#070707"
+                            />
+                            <path
+                                class="lamp-path"
+                                d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z"
+                                stroke="#070707"
+                            />
+                            <path
+                                class="lamp-path"
+                                d="M21.5 35.0667L21.0041 -89.9563L21 -91"
+                                stroke="#070707"
+                                stroke-width="2"
+                            />
+                            <path
+                                class="lamp-path"
+                                d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z"
+                                fill="#070707"
+                                stroke="#070707"
+                            />
+                            <path
+                                class="lamp-path"
+                                d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z"
+                                fill="url(#paint0_linear_485_13)"
+                            />
+                            <mask id="path-7-inside-1_485_13" fill="white">
+                                <path
+                                    class="lamp-path"
+                                    d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
+                                />
+                            </mask>
+                            <path
+                                class="lamp-path"
+                                d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
+                                fill="white"
+                                fill-opacity="0.25"
+                                stroke="#070707"
+                                stroke-width="2"
+                                mask="url(#path-7-inside-1_485_13)"
+                            />
+                            <defs>
+                                <linearGradient
+                                    id="paint0_linear_485_13"
+                                    x1="21.5"
+                                    y1="63.7334"
+                                    x2="21.5"
+                                    y2="111.033"
+                                    gradientUnits="userSpaceOnUse"
+                                >
+                                    <stop
+                                        class="lamp-start"
+                                        stop-color="white"
+                                    />
+                                    <stop
+                                        class="lamp-stop"
+                                        offset="1"
+                                        stop-color="white"
+                                        stop-opacity="0"
+                                    />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <svg
+                            width="30"
+                            height="56"
+                            viewBox="0 0 43 112"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="theme-icon-dark"
+                        >
+                            <path
+                                d="M13.7197 35.5667H29.2803C29.5186 35.5667 29.7238 35.7353 29.7705 35.969L35.1045 62.635C35.1663 62.9443 34.9296 63.2334 34.6143 63.2336H8.38672C8.07124 63.2336 7.83461 62.9444 7.89648 62.635L13.2295 35.969C13.2704 35.7644 13.4331 35.6098 13.6328 35.5745L13.7197 35.5667Z"
+                                fill="#707070"
+                                stroke="black"
+                            />
+                            <path
+                                d="M22.374 38.5L14.3535 46.5205L13.1855 47.6875L13.5098 46.0684L14.9434 38.9023L15.0234 38.5H22.374Z"
+                                stroke="black"
+                            />
+                            <path
+                                d="M31.0947 49.9297L32.5283 59.9629L32.6094 60.5332H20.9131L21.6201 59.708L30.2207 49.6748L30.9385 48.8359L31.0947 49.9297Z"
+                                stroke="black"
+                            />
+                            <path
+                                d="M21.5 35.0667L21.0041 -89.9563L21 -91"
+                                stroke="black"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M22.624 29.8333L24.9912 34.5667H18.0088L20.376 29.8333H22.624Z"
+                                fill="black"
+                                stroke="black"
+                            />
+                            <path
+                                d="M10.0333 63.7334L0 111.033H43L32.9667 63.7334H10.0333Z"
+                                fill="url(#paint0_linear_485_77)"
+                            />
+                            <mask id="path-7-inside-1_485_77" fill="white">
+                                <path
+                                    d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
+                                />
+                            </mask>
+                            <path
+                                d="M30.2 62.6C30.2 63.7294 29.9776 64.8477 29.5454 65.8911C29.1132 66.9345 28.4797 67.8825 27.6811 68.6811C26.8825 69.4797 25.9345 70.1132 24.8911 70.5454C23.8477 70.9776 22.7294 71.2 21.6 71.2C20.4706 71.2 19.3523 70.9776 18.3089 70.5454C17.2655 70.1132 16.3175 69.4797 15.5189 68.6811C14.7203 67.8825 14.0868 66.9345 13.6546 65.8911C13.2224 64.8477 13 63.7294 13 62.6L21.6 62.6H30.2Z"
+                                fill="white"
+                                fill-opacity="0.25"
+                                stroke="black"
+                                stroke-width="2"
+                                mask="url(#path-7-inside-1_485_77)"
+                            />
+                            <defs>
+                                <linearGradient
+                                    id="paint0_linear_485_77"
+                                    x1="21.5"
+                                    y1="63.7334"
+                                    x2="21.5"
+                                    y2="111.033"
+                                    gradientUnits="userSpaceOnUse"
+                                >
+                                    <stop stop-color="#707070" />
+                                    <stop
+                                        offset="1"
+                                        stop-color="#171717"
+                                        stop-opacity="0"
+                                    />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </button>
                 </div>
-                <div class="sudoku-grid" id="sudoku-grid"></div>
-                <div class="sudoku-buttons">
-                    <button class="sudoku-btn" id="sudoku-check">Check</button>
-                    <button class="sudoku-btn" id="sudoku-new">New Game</button>
+
+                <div class="sidebar-copyright">
+                    <a
+                        href="mailto:tripchanski@gmail.com"
+                        class="copyright-email"
+                        >tripchanski@gmail.com</a
+                    >
+                    <div class="copyright-text">© 2026 Artur Mamedov</div>
                 </div>
             </div>
-        </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="horizontal-scroll-container">
+                <section class="scroll-section theme-secondary" id="welcome">
+                    <div class="content">
+                        <h1 class="text" id="welcome-text-1">
+                            Hello Everyone!
+                        </h1>
+                        <h1 class="text hidden" id="welcome-text-2">
+                            I'm Mamedov Artur.
+                        </h1>
+                    </div>
+                </section>
+
+                <section
+                    class="scroll-section theme-secondary active"
+                    id="about-me"
+                >
+                    <div class="content">
+                        <div id="typing-text"></div>
+                    </div>
+                </section>
+
+                <section class="scroll-section theme-secondary" id="stack">
+                    <div class="content" id="stack_container">
+                        <div class="category">
+                            <h3>Languages</h3>
+                            <div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/python.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Python</span
+                                        ><span class="stack_yo_exp"
+                                            >5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/html.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">HTML</span
+                                        ><span class="stack_yo_exp"
+                                            >4+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/css.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">CSS</span
+                                        ><span class="stack_yo_exp"
+                                            >4+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/js.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name"
+                                            >JavaScript</span
+                                        ><span class="stack_yo_exp"
+                                            >2.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/php.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">PHP</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/md.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Markdown</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/languages/ts.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name"
+                                            >TypeScript</span
+                                        ><span class="stack_yo_exp"
+                                            >0.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h3>Frameworks & Libraries</h3>
+                            <div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/discord.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name"
+                                            >Discord.py</span
+                                        ><span class="stack_yo_exp"
+                                            >4.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/pygame.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">PyGame</span
+                                        ><span class="stack_yo_exp"
+                                            >3.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/dj.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Django</span
+                                        ><span class="stack_yo_exp"
+                                            >3+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/jQuery.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">JQuery</span
+                                        ><span class="stack_yo_exp"
+                                            >2.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/aiogram.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Aiogram</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/fastapi.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">FastAPI</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/react.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">React</span
+                                        ><span class="stack_yo_exp"
+                                            >0.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/react_native.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name"
+                                            >React Native</span
+                                        ><span class="stack_yo_exp"
+                                            >0.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/libraries/expo.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Expo</span
+                                        ><span class="stack_yo_exp"
+                                            >0.5+ years</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h3>SQL & NoSQL</h3>
+                            <div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/database/sqlite.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">SQLite</span
+                                        ><span class="stack_yo_exp"
+                                            >3+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/database/mongodb.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">MongoDB</span
+                                        ><span class="stack_yo_exp"
+                                            >3+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/database/mysql.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">MySQL</span
+                                        ><span class="stack_yo_exp"
+                                            >2+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/database/postgresql.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name"
+                                            >PostgreSQL</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h3>Tools & DevOps</h3>
+                            <div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/tools/git.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Git</span
+                                        ><span class="stack_yo_exp"
+                                            >3+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/tools/docker.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Docker</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/tools/gunicorn.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Gunicorn</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="stack_block card">
+                                    <img
+                                        src="img/stack/tools/nginx.svg"
+                                        loading="lazy"
+                                    />
+                                    <div class="stack_content">
+                                        <span class="stack_name">Nginx</span
+                                        ><span class="stack_yo_exp"
+                                            >1+ years</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="scroll-section theme-secondary" id="projects">
+                    <div class="content">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="project-card theme-secondary">
+                                        <div class="project-img">
+                                            <img
+                                                src="img/dexy.webp"
+                                                alt="Dexy Project"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-main-info">
+                                                <h2 class="project-text">
+                                                    Dexy
+                                                </h2>
+                                                <p class="about project-text">
+                                                    First Individual Project
+                                                    Created in Q3 2021. This was
+                                                    my first full-fledged
+                                                    project — a Discord bot
+                                                    written in Python. It
+                                                    provides moderation tools
+                                                    and an economic environment
+                                                    with mini-games, allowing
+                                                    users to earn points and
+                                                    level up. Thanks to my
+                                                    initiative, I significantly
+                                                    developed algorithmic and
+                                                    logical thinking.
+                                                </p>
+                                                <div class="stacks-for-project">
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Python
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #DiscordAPI
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-buttons"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="project-card theme-secondary">
+                                        <div class="project-img">
+                                            <img
+                                                src="img/ca2023.webp"
+                                                alt="CA 2023 Project"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-main-info">
+                                                <h2 class="project-text">
+                                                    Christmas Adventure 2023
+                                                </h2>
+                                                <p class="about project-text">
+                                                    The game was created on
+                                                    December 31, 2023. My role:
+                                                    team leader, programmer,
+                                                    designer, and sound
+                                                    engineer. In this first
+                                                    project, I improved
+                                                    problem-solving skills,
+                                                    created the design, wrote
+                                                    the script, and supported
+                                                    coding. Our team brought the
+                                                    game to the top.
+                                                </p>
+                                                <div class="stacks-for-project">
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Python
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #PyGame
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Photoshop
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-buttons">
+                                                <a
+                                                    href="https://github.com/Tripchanski/Christmas_Adventure_2023"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <button class="btn-link">
+                                                        <img
+                                                            src="img/Github.svg"
+                                                            alt="Link"
+                                                            loading="lazy"
+                                                        />
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="project-card theme-secondary">
+                                        <div class="project-img">
+                                            <img
+                                                src="img/Flare.svg"
+                                                alt="Flare"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-main-info">
+                                                <h2 class="project-text">
+                                                    FlareRestaurant
+                                                </h2>
+                                                <p class="about project-text">
+                                                    Second Team Project
+                                                    Completed in July 2023. My
+                                                    role: team leader,
+                                                    programmer, and designer. We
+                                                    developed our first
+                                                    full-fledged website, which
+                                                    turned out to be quite
+                                                    successful. The main goal
+                                                    was to showcase the
+                                                    knowledge gained over a year
+                                                    of learning.
+                                                </p>
+                                                <div class="stacks-for-project">
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Python
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Django
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #SQL
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Figma
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #HTML
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #CSS
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #JavaScript
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #JQuery
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-buttons">
+                                                <a
+                                                    href="https://github.com/Tripchanski/FlareRestaurant"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <button class="btn-link">
+                                                        <img
+                                                            src="img/Github.svg"
+                                                            alt="Link"
+                                                            loading="lazy"
+                                                        />
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="project-card theme-secondary">
+                                        <div class="project-img">
+                                            <img
+                                                src="img/SeCrew.svg"
+                                                alt="Flare"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-main-info">
+                                                <h2 class="project-text">
+                                                    SeCrew
+                                                </h2>
+                                                <p class="about project-text">
+                                                    Landing page mockup for a
+                                                    fictional security services
+                                                    company. The project aims to
+                                                    showcase design skills,
+                                                    including the use of color
+                                                    psychology, typography,
+                                                    proper spacing, and content
+                                                    hierarchy. The focus is also
+                                                    on responsiveness, ensuring
+                                                    a seamless user experience
+                                                    across different devices.
+                                                </p>
+                                                <div class="stacks-for-project">
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Figma
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Adaptive_Design
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Color_Psychology
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Typography
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Spacing
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #Hierarchy
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-buttons">
+                                                <a
+                                                    href="https://www.figma.com/proto/K7NYvGuL8fkVOagFrkPZLw/Landing?node-id=2-3&t=05Jsx0NBg1tINr5O-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A3"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <button class="btn-link">
+                                                        <img
+                                                            src="img/Figma.svg"
+                                                            alt="Link"
+                                                            loading="lazy"
+                                                        />
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="project-card theme-secondary">
+                                        <div class="project-img">
+                                            <img
+                                                src="img/BlackLock.png"
+                                                alt="Flare"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-main-info">
+                                                <h2 class="project-text">
+                                                    BlackLock
+                                                </h2>
+                                                <p class="about project-text">
+                                                    Most task management apps
+                                                    make the same critical
+                                                    mistake: they let users mark
+                                                    tasks as complete without
+                                                    actually doing them. It's
+                                                    too easy to lie to yourself
+                                                    with a simple checkbox.
+                                                    BlackLock solves this
+                                                    problem by requiring
+                                                    multiple confirmations
+                                                    before marking a task as
+                                                    complete. This deliberate
+                                                    friction makes you pause and
+                                                    think: "Maybe I should
+                                                    actually complete this task
+                                                    in reality?"
+                                                </p>
+                                                <div class="stacks-for-project">
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #expo
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #react
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #ts
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #app
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="stack-for-project"
+                                                    >
+                                                        <p class="project-text">
+                                                            #productivity
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-buttons">
+                                                <a
+                                                    href="https://github.com/tripchanski/BlackLock"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <button class="btn-link">
+                                                        <img
+                                                            src="img/Github.svg"
+                                                            alt="Link"
+                                                            loading="lazy"
+                                                        />
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     </body>
